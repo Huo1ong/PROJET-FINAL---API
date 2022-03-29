@@ -30,28 +30,28 @@ namespace PROJET_FINAL___API.Controllers
         [HttpPost]
         public void AjouterGarderie()
         {
-
+            
         }
 
         [Route("Garderie/ModifierGarderie")]
         [HttpPost]
         public void ModifierGarderie()
         {
-
+            
         }
 
         [Route("Garderie/SupprimerGarderie")]
         [HttpPost]
         public void SupprimerGarderie()
         {
-
+            
         }
 
         [Route("Garderie/ViderListeGarderie")]
         [HttpPost]
         public void ViderListeGarderie()
         {
-
+            
         }
     }
 }
