@@ -9,6 +9,7 @@ namespace PROJET_FINAL___API.Controllers
     [ApiController]
     public class GarderieController : Controller
     {
+        [Route("")]
         [Route("Garderie")]
         [Route("Garderie/ObtenirListeGarderie")]
         [HttpGet]
@@ -26,7 +27,7 @@ namespace PROJET_FINAL___API.Controllers
             return liste;
         }
 
-        [Route("Garderie/ObtenirGaderie")]
+        [Route("Garderie/ObtenirGarderie")]
         [HttpGet]
         public GarderieDTO ObtenirGarderie([FromQuery] string nomGarderie)
         {

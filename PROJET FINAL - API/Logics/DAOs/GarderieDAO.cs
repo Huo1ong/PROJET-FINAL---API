@@ -60,8 +60,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <returns>Le ID de la Garderie.</returns>
         public int ObtenirIdGarderie(string nom)
         {
-            SqlCommand command = new SqlCommand(" SELECT Id " +
-                                                "   FROM Garderie " +
+            SqlCommand command = new SqlCommand(" SELECT idGarderie " +
+                                                "   FROM T_Garderies " +
                                                 "  WHERE Nom = @nom ", connexion);
 
             SqlParameter nomParam = new SqlParameter("@nom", SqlDbType.VarChar, 50);
@@ -99,7 +99,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public GarderieDTO ObtenirGarderie(string nom)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM Garderie " +
+                                                " FROM T_Garderies " +
                                                 " WHERE nom = @nom ", connexion);
 
             SqlParameter nomParam = new SqlParameter("@nom", SqlDbType.VarChar, 50);
@@ -136,7 +136,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public List<GarderieDTO> ObtenirListeGarderie()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM Garderie ", connexion);
+                                                "   FROM T_Garderies ", connexion);
 
             List<GarderieDTO> liste = new List<GarderieDTO>();
 
@@ -170,7 +170,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(null, connexion);
 
-            command.CommandText = " INSERT INTO Garderie (Nom, Adresse, Ville, Province, Telephone) " +
+            command.CommandText = " INSERT INTO T_Garderies (Nom, Adresse, Ville, Province, Telephone) " +
                                   " VALUES (@nom, @adresse, @ville, @province, @telephone) ";
 
             SqlParameter nomParam = new SqlParameter("@nom", SqlDbType.VarChar, 100);
@@ -215,12 +215,12 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(null, connexion);
 
-            command.CommandText = " UPDATE Garderie " +
+            command.CommandText = " UPDATE T_Garderies " +
                                      " SET Adresse = @adresse, " +
                                      "     Ville = @ville, " +
                                      "     Province = @province, " +
-                                     "     Telephone = @telephone, " +
-                                   " WHERE Nom = @nom ";
+                                     "     Telephone = @telephone " +
+                                     " WHERE Nom = @nom ";
 
             SqlParameter nomParam = new SqlParameter("@nom", SqlDbType.VarChar, 100);
             SqlParameter adresseParam = new SqlParameter("@adresse", SqlDbType.VarChar, 200);
@@ -265,8 +265,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
             SqlCommand command = new SqlCommand(null, connexion);
 
             command.CommandText = " DELETE " +
-                                    " FROM Garderie " +
-                                   " WHERE Id = @id ";
+                                    " FROM T_Garderies " +
+                                   " WHERE idGarderie = @id ";
 
             SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
 
@@ -306,7 +306,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(null, connexion);
 
-            command.CommandText = " DELETE FROM Garderie";
+            command.CommandText = " DELETE FROM T_Garderies";
             try
             {
                 OuvrirConnexion();
