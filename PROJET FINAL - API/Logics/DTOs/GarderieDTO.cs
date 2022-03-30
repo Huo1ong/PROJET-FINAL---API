@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using PROJET_FINAL___API.Logics.Models;
 
 namespace PROJET_FINAL___API.Logics.DTOs
 {
@@ -56,7 +53,7 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// Constructeur avec le modèle Garderie en paramètre.
         /// </summary>
         /// <param name="laGarderie">L'objet du modèle Garderie.</param>
-        public GarderieDTO(GarderieDTO laGarderie)
+        public GarderieDTO(GarderieModel laGarderie)
         {
             Nom = laGarderie.Nom;
             Adresse = laGarderie.Adresse;

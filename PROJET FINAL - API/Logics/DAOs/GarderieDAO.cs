@@ -130,6 +130,39 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
+        /// Méthode de service permettant d'obtenir la liste des Garderies.
+        /// </summary>
+        /// <param name="nom">Le nom de la Garderie.</param>
+        public List<GarderieDTO> ObtenirListeGarderie()
+        {
+            SqlCommand command = new SqlCommand(" SELECT * " +
+                                                "   FROM Garderie ", connexion);
+
+            List<GarderieDTO> liste = new List<GarderieDTO>();
+
+            try
+            {
+                OuvrirConnexion();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    GarderieDTO garderie = new GarderieDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
+                    liste.Add(garderie);
+                }
+                reader.Close();
+                return liste;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de l'obtention de la liste des garderies...", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
         /// Méthode de service permettant d'ajouter une Garderie.
         /// </summary>
         /// <param name="garderieDTO">Le DTO de la garderie.</param>
