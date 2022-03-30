@@ -14,42 +14,90 @@ namespace PROJET_FINAL___API.Controllers
         [HttpGet]
         public List<GarderieDTO> ObtenirListeGarderie()
         {
-            return null;
+            List<GarderieDTO> liste;
+            try
+            {
+                liste = GarderieControleur.Instance.ObtenirListeGarderie();
+            }
+            catch (Exception)
+            {
+                liste = new List<GarderieDTO>();
+            }
+            return liste;
         }
 
         [Route("Garderie/ObtenirGaderie")]
         [HttpGet]
-        public GarderieDTO ObtenirGarderie()
+        public GarderieDTO ObtenirGarderie([FromQuery] string nomGarderie)
         {
-            return null;
+            GarderieDTO garderie = new GarderieDTO();
+            try
+            {
+                garderie = GarderieControleur.Instance.ObtenirGarderie(nomGarderie);
+            }
+            catch (Exception ex)
+            {
+                garderie = new GarderieDTO();
+            }
+            return garderie;
         }
 
         [Route("Garderie/AjouterGarderie")]
         [HttpPost]
-        public void AjouterGarderie()
+        public void AjouterGarderie([FromBody] GarderieDTO garderieDTO)
         {
-            
+            try
+            {
+                GarderieControleur.Instance.AjouterGarderie(garderieDTO);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         [Route("Garderie/ModifierGarderie")]
         [HttpPost]
-        public void ModifierGarderie()
+        public void ModifierGarderie([FromBody] GarderieDTO garderieDTO)
         {
-            
+            try
+            {
+                GarderieControleur.Instance.ModifierGarderie(garderieDTO);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         [Route("Garderie/SupprimerGarderie")]
         [HttpPost]
-        public void SupprimerGarderie()
+        public void SupprimerGarderie([FromQuery] string nomGarderie)
         {
-            
+            try
+            {
+                GarderieControleur.Instance.SupprimerGarderie(nomGarderie);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         [Route("Garderie/ViderListeGarderie")]
         [HttpPost]
         public void ViderListeGarderie()
         {
-            
+            try
+            {
+                GarderieControleur.Instance.ViderListeGarderie();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return;
         }
     }
 }

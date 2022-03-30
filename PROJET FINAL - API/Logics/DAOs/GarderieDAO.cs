@@ -94,7 +94,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir une Garderie selon ses informations uniques.
         /// </summary>
-        /// <param name="nom">Nom de la Garderie.</param>
+        /// <param name="nomGarderie">Nom de la Garderie.</param>
         /// <returns>Le DTO de la Garderie.</returns>
         public GarderieDTO ObtenirGarderie(string nom)
         {
