@@ -9,6 +9,11 @@ namespace PROJET_FINAL___API.Controllers
     [ApiController]
     public class GarderieController : Controller
     {
+        /// <summary>
+        /// Roles:
+        ///  - Obtenir la liste des garderies
+        /// </summary>
+        /// <returns>Retourne la liste des garderies</returns>
         [Route("")]
         [Route("Garderie")]
         [Route("Garderie/ObtenirListeGarderie")]
@@ -27,6 +32,12 @@ namespace PROJET_FINAL___API.Controllers
             return liste;
         }
 
+        /// <summary>
+        /// Roles:
+        ///  - Obtenir une garderie grâce à son nom
+        /// </summary>
+        /// <param name="nomGarderie">Nom de la Garderie</param>
+        /// <returns>Retourne la garderie souhaité</returns>
         [Route("Garderie/ObtenirGarderie")]
         [HttpGet]
         public GarderieDTO ObtenirGarderie([FromQuery] string nomGarderie)
@@ -43,6 +54,12 @@ namespace PROJET_FINAL___API.Controllers
             return garderie;
         }
 
+        /// <summary>
+        /// Roles:
+        ///  - Ajouter une garderie
+        /// </summary>
+        /// <param name="garderieDTO">La nouvelle Garderie</param>
+        /// <returns></returns>
         [Route("Garderie/AjouterGarderie")]
         [HttpPost]
         public void AjouterGarderie([FromBody] GarderieDTO garderieDTO)
@@ -57,6 +74,12 @@ namespace PROJET_FINAL___API.Controllers
             }
         }
 
+        /// <summary>
+        /// Roles:
+        ///  - Modifier une garderie
+        /// </summary>
+        /// <param name="garderieDTO">La garderie avec les nouvelles valeurs.</param>
+        /// <returns</returns>
         [Route("Garderie/ModifierGarderie")]
         [HttpPost]
         public void ModifierGarderie([FromBody] GarderieDTO garderieDTO)
@@ -71,6 +94,12 @@ namespace PROJET_FINAL___API.Controllers
             }
         }
 
+        /// <summary>
+        /// Roles:
+        ///  - Supprimer une Garderie grâce à son nom
+        /// </summary>
+        /// <param name="nomGarderie">Nom de la Garderie</param>
+        /// <returns></returns>
         [Route("Garderie/SupprimerGarderie")]
         [HttpPost]
         public void SupprimerGarderie([FromQuery] string nomGarderie)
@@ -86,6 +115,11 @@ namespace PROJET_FINAL___API.Controllers
             }
         }
 
+        /// <summary>
+        /// Roles:
+        ///  - Vider la liste des garderies
+        /// </summary>
+        /// <returns></returns>
         [Route("Garderie/ViderListeGarderie")]
         [HttpPost]
         public void ViderListeGarderie()
