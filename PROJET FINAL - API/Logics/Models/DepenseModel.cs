@@ -63,11 +63,11 @@ namespace PROJET_FINAL___API.Logics.Models
         /// <summary>
         ///  Attribut représentant la catégorie de la dépense.
         /// </summary>
-        private CategorieDepense categorie;
+        private CategorieDepenseModel categorie;
         /// <summary>
         ///  Propriété représentant la catégorie de la dépense.
         /// </summary>
-        public CategorieDepense Categorie
+        public CategorieDepenseModel Categorie
         {
             get { return categorie; }
             set
@@ -85,10 +85,12 @@ namespace PROJET_FINAL___API.Logics.Models
         /// </summary>
         /// <param name="uneDateTemps">La date et l'heure de la dépense</param>
         /// <param name="unMontant">Le montant de la dépense</param>
-        public DepenseModel(string uneDateTemps = "", double unMontant = 0)
+        public DepenseModel(string uneDateTemps = "", double unMontant = 0, CommerceModel unCommerce = null, CategorieDepenseModel uneCategorie = null)
         {
             DateTemps = uneDateTemps;
             Montant = unMontant;
+            Commerce = unCommerce;
+            Categorie = uneCategorie;
         }
 
         #endregion Constructeurs
@@ -101,7 +103,7 @@ namespace PROJET_FINAL___API.Logics.Models
         /// <returns>Version textuelle de l'objet Dépense.</returns>
         public override string ToString()
         {
-            return DateTemps + "\n" + Montant;
+            return DateTemps + "\n" + Montant + "\n" + Commerce.ToString() + "\n" + Categorie.ToString();
         }
 
         /// <summary>

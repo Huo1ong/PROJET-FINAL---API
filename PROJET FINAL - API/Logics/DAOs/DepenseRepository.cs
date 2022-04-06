@@ -115,7 +115,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 OuvrirConnexion();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                uneDepense = new DepenseDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
+                uneDepense = new DepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)), Convert.ToDouble(reader.GetString(3))); 
                 reader.Close();
                 return uneDepense;
             }
@@ -145,7 +145,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    DepenseDTO depense = new DepenseDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5));
+                    DepenseDTO depense = new DepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)), Convert.ToDouble(reader.GetString(3));
                     liste.Add(depense);
                 }
                 reader.Close();

@@ -180,7 +180,7 @@ namespace PROJET_FINAL___API.Logics.Models
         /// </summary>
         /// <param name="nomGarderie">Le nom de la garderie</param>
         /// <returns>La liste des dépenses de la garderie</returns>
-        public List<DepenseModel> ObtenirListeDepense(string nomGarderie)
+        public List<DepenseModel> ObtenirListeDepense()
         {
             return ListeDepense;
         }

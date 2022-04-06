@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PROJET_FINAL___API.Logics.Models
 {
-    public class CategorieDepense
+    public class CategorieDepenseModel
     {
         #region AttributsProprietes
 
@@ -53,7 +53,7 @@ namespace PROJET_FINAL___API.Logics.Models
         /// </summary>
         /// <param name="uneDescription">La description de la categorie</param>
         /// <param name="unPourcentage">Le pourcentage de la categorie</param>
-        public CategorieDepense(string uneDescription = "", double unPourcentage = 0)
+        public CategorieDepenseModel(string uneDescription = "", double unPourcentage = 0)
         {
             Description = uneDescription;
             Pourcentage = unPourcentage;
@@ -80,7 +80,7 @@ namespace PROJET_FINAL___API.Logics.Models
         /// <returns>Vrai si égal, Faux sinon...</returns>
         public override bool Equals(object obj)
         {
-            return (obj != null) && (obj is CategorieDepense) && Description.Equals((obj as CategorieDepense).Description);
+            return (obj != null) && (obj is CategorieDepenseModel) && Description.Equals((obj as CategorieDepenseModel).Description);
         }
 
         /// <summary>
