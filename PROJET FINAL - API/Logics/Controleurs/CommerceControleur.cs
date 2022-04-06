@@ -54,7 +54,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <returns>Liste contenant les commerces.</returns>
         public List<CommerceDTO> ObtenirListeCommerce()
         {
-            List<CommerceDTO> listeCommerceDTO = CommerceDAO.Instance.ObtenirListeCommerce();
+            List<CommerceDTO> listeCommerceDTO = CommerceRepository.Instance.ObtenirListeCommerce();
             List<CommerceModel> listeCommerce = new List<CommerceModel>();
             foreach (CommerceDTO commerce in listeCommerceDTO)
             {
@@ -74,7 +74,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <returns>Le DTO du Commerce.</returns>
         public CommerceDTO ObtenirCommerce(string description)
         {
-            CommerceDTO commerceDTO = CommerceDAO.Instance.ObtenirCommerce(description);
+            CommerceDTO commerceDTO = CommerceRepository.Instance.ObtenirCommerce(description);
             CommerceModel commerce = new CommerceModel(commerceDTO.Description, commerceDTO.Adresse, commerceDTO.Telephone);
             return new CommerceDTO(commerce);
         }

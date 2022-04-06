@@ -54,7 +54,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <returns>Liste contenant les Catégories de Dépense.</returns>
         public List<CategorieDepenseDTO> ObtenirListeCategorieDepense()
         {
-            List<CategorieDepenseDTO> listeCategorieDepenseDTO = CategorieDepenseDAO.Instance.ObtenirListeCategorieDepense();
+            List<CategorieDepenseDTO> listeCategorieDepenseDTO = CategorieDepenseRepository.Instance.ObtenirListeCategorieDepense();
             List<CategorieDepenseModel> listeCategorieDepense = new List<CategorieDepenseModel>();
             foreach (CategorieDepenseDTO categorieDepense in listeCategorieDepenseDTO)
             {
@@ -74,8 +74,8 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <returns>Le DTO de la Catégorie de Dépense.</returns>
         public CategorieDepenseDTO ObtenirCategorieDepense(string description)
         {
-            CategorieDepenseDTO categorieDepenseDTO = CategorieDepenseDAO.Instance.ObtenirCategorieDepense(description);
-            CategorieDepenseModel categorieDepense = new CategorieDepenseModel(categorieDepenseDTO.Description, categorieDepenseDTO.Telephone);
+            CategorieDepenseDTO categorieDepenseDTO = CategorieDepenseRepository.Instance.ObtenirCategorieDepense(description);
+            CategorieDepenseModel categorieDepense = new CategorieDepenseModel(categorieDepenseDTO.Description, categorieDepenseDTO.Pourcentage);
             return new CategorieDepenseDTO(categorieDepense);
         }
 

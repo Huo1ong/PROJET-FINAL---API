@@ -90,7 +90,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// </summary>
         /// <param name="description">Description de la Categorie.</param>
         /// <returns>Le DTO de la Categorie.</returns>
-        public CategorieDepenseDTO ObtenirCategorie(string description)
+        public CategorieDepenseDTO ObtenirCategorieDepense(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM T_CategoriesDepense " +
@@ -126,7 +126,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Categories.
         /// </summary>
-        public List<CategorieDepenseDTO> ObtenirListeCategories()
+        public List<CategorieDepenseDTO> ObtenirListeCategorieDepense()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 "   FROM T_Categories ", connexion);

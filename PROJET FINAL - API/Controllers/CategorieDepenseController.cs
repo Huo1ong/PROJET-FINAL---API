@@ -19,7 +19,7 @@ namespace PROJET_FINAL___API.Controllers
         [HttpGet]
         public List<CategorieDepenseDTO> ObtenirListeCategorieDepense()
         {
-            List<GarderieDTO> listeCategorieDepense;
+            List<CategorieDepenseDTO> listeCategorieDepense;
             try
             {
                 listeCategorieDepense = CategorieDepenseControleur.Instance.ObtenirListeCategorieDepense();

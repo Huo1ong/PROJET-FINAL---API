@@ -18,16 +18,16 @@ namespace PROJET_FINAL___API.Controllers
         [HttpGet]
         public List<CommerceDTO> ObtenirListeCommerce()
         {
-            List<CommerceDTO> commerce;
+            List<CommerceDTO> listeCommerce;
             try
             {
-                commerce = CommerceControleur.Instance.ObtenirListeCommerce();
+                listeCommerce = CommerceControleur.Instance.ObtenirListeCommerce();
             }
             catch (Exception)
             {
-                commerce = new List<CommerceDTO>();
+                listeCommerce = new List<CommerceDTO>();
             }
-            return commerce;
+            return listeCommerce;
         }
 
         /// <summary>
