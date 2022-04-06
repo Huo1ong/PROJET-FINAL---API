@@ -13,19 +13,19 @@ namespace PROJET_FINAL___API.Logics.DAOs
     /// <summary>
     /// Classe représentant le répository d'un cégep.
     /// </summary>
-    public class GarderieDAO : Repository
+    public class GarderieRepository : Repository
     {
         #region AttributsProprietes
 
         /// <summary>
         /// Instance unique du repository.
         /// </summary>
-        private static GarderieDAO instance;
+        private static GarderieRepository instance;
 
         /// <summary>
         /// Propriété permettant d'accèder à l'instance unique de la classe.
         /// </summary>
-        public static GarderieDAO Instance
+        public static GarderieRepository Instance
         {
             get
             {
@@ -33,7 +33,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 if (instance == null)
                 {
                     //... on crée l'instance unique...
-                    instance = new GarderieDAO();
+                    instance = new GarderieRepository();
                 }
                 //...on retourne l'instance unique.
                 return instance;
@@ -47,7 +47,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Constructeur privée du repository.
         /// </summary>
-        private GarderieDAO() : base() { }
+        private GarderieRepository() : base() { }
 
         #endregion
 

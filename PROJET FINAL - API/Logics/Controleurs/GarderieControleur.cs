@@ -54,7 +54,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <returns>Liste contenant les garderies.</returns>
         public List<GarderieDTO> ObtenirListeGarderie()
         {
-            List<GarderieDTO> listeGarderieDTO = GarderieDAO.Instance.ObtenirListeGarderie();
+            List<GarderieDTO> listeGarderieDTO = GarderieRepository.Instance.ObtenirListeGarderie();
             List<GarderieModel> listeGarderie = new List<GarderieModel>();
             foreach (GarderieDTO garderie in listeGarderieDTO)
             {
@@ -74,7 +74,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <returns>Le DTO de le Garderie.</returns>
         public GarderieDTO ObtenirGarderie(string nom)
         {
-            GarderieDTO garderieDTO = GarderieDAO.Instance.ObtenirGarderie(nom);
+            GarderieDTO garderieDTO = GarderieRepository.Instance.ObtenirGarderie(nom);
             GarderieModel garderie = new GarderieModel(garderieDTO.Nom, garderieDTO.Adresse, garderieDTO.Ville, garderieDTO.Province, garderieDTO.Telephone);
             return new GarderieDTO(garderie);
         }
@@ -88,7 +88,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             bool OK = false;
             try
             {
-                GarderieDAO.Instance.ObtenirIdGarderie(garderie.Nom);
+                GarderieRepository.Instance.ObtenirIdGarderie(garderie.Nom);
             }
             catch (Exception)
             {
@@ -98,7 +98,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             if (OK)
             {
                 GarderieModel uneGarderie = new GarderieModel(garderie.Nom, garderie.Adresse, garderie.Ville, garderie.Province, garderie.Telephone);
-                GarderieDAO.Instance.AjouterGarderie(garderie);
+                GarderieRepository.Instance.AjouterGarderie(garderie);
             }
             else
                 throw new Exception("Erreur - La Garderie est déjà existante.");
@@ -115,7 +115,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             GarderieModel garderie = new GarderieModel(garderieDTO2.Nom, garderieDTO2.Adresse, garderieDTO2.Ville, garderieDTO2.Province, garderieDTO2.Telephone);
 
             if (garderieDTO.Adresse != garderie.Adresse || garderieDTO.Ville != garderie.Ville || garderieDTO.Province != garderie.Province || garderieDTO.Telephone != garderie.Telephone)
-                GarderieDAO.Instance.ModifierGarderie(garderieDTO);
+                GarderieRepository.Instance.ModifierGarderie(garderieDTO);
             else
                 throw new Exception("Erreur - Veuillez modifier au moins une valeur.");
         }
@@ -127,7 +127,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         public void SupprimerGarderie(string nom)
         {
             GarderieDTO garderieDTO= ObtenirGarderie(nom);
-            GarderieDAO.Instance.SupprimerGarderie(garderieDTO);
+            GarderieRepository.Instance.SupprimerGarderie(garderieDTO);
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         {
             if (ObtenirListeGarderie().Count == 0)
                 throw new Exception("Erreur - La liste des Garderies est déjà vide.");
-            GarderieDAO.Instance.ViderListeGarderie();
+            GarderieRepository.Instance.ViderListeGarderie();
         }
 
         #endregion MethodesGarderie

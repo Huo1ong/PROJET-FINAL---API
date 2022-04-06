@@ -56,19 +56,24 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir le ID d'une Depense selon ses informatiques uniques.
         /// </summary>
+        /// <param name="nomGarderie">Nom de la Garderie</param>
         /// <param name="dateTemps">Date et Heure de la Depense.</param>
         /// <returns>Le ID de la Garderie.</returns>
-        public int ObtenirIdDepense(string dateTemps)
+        public int ObtenirIdDepense(string nomGarderie, string dateTemps)
         {
-            SqlCommand command = new SqlCommand(" SELECT idDepense " +
-                                                "   FROM T_Depenses " +
-                                                "  WHERE DateTemps = @date ", connexion);
+             SqlCommand command = new SqlCommand(" SELECT idDepense " +
+                                                " FROM T_Depenses " +
+                                                " WHERE DateTemps = @date " +
+                                                " AND IdGarderie = @idGarderie", connexion);
 
             SqlParameter nomParam = new SqlParameter("@date", SqlDbType.VarChar, 50);
+            SqlParameter idGarderieParam = new SqlParameter("@date", SqlDbType.Int);
 
             nomParam.Value = dateTemps;
+            idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
 
             command.Parameters.Add(nomParam);
+            command.Parameters.Add(idGarderieParam);
 
             int id;
 
@@ -94,19 +99,24 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir une Depense selon ses informations uniques.
         /// </summary>
+        /// <param name="nomGarderie">Nom de la Garderie</param>
         /// <param name="dateTemps">Date est Heure de la Depense.</param>
         /// <returns>Le DTO de la Depense.</returns>
-        public DepenseDTO ObtenirDepense(string dateTemps)
+        public DepenseDTO ObtenirDepense(string nomGarderie, string dateTemps)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM T_Depenses " +
-                                                " WHERE DateTemps = @date ", connexion);
+                                                " WHERE DateTemps = @date " +
+                                                " AND IdGarderie = @idGarderie", connexion);
 
             SqlParameter nomParam = new SqlParameter("@date", SqlDbType.VarChar, 50);
+            SqlParameter idGarderieParam = new SqlParameter("@date", SqlDbType.Int);
 
             nomParam.Value = dateTemps;
+            idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
 
             command.Parameters.Add(nomParam);
+            command.Parameters.Add(idGarderieParam);
 
             DepenseDTO uneDepense;
 
@@ -132,10 +142,19 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Dépenses.
         /// </summary>
-        public List<DepenseDTO> ObtenirListeDepense()
+        /// <param name="nomGarderie">Nom de la Garderie</param>
+        public List<DepenseDTO> ObtenirListeDepense(string nomGarderie)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM T_Depenses ", connexion);
+                                                " FROM T_Depenses " +
+                                                " WHERE IdGarderie = @idGarderie ", connexion);
+
+
+            SqlParameter idGarderieParam = new SqlParameter("@date", SqlDbType.Int);
+
+            idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
+
+            command.Parameters.Add(idGarderieParam);
 
             List<DepenseDTO> liste = new List<DepenseDTO>();
 
@@ -145,7 +164,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    DepenseDTO depense = new DepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)), Convert.ToDouble(reader.GetString(3));
+                    DepenseDTO depense = new DepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)), Convert.ToDouble(reader.GetString(3)));
                     liste.Add(depense);
                 }
                 reader.Close();
@@ -180,9 +199,9 @@ namespace PROJET_FINAL___API.Logics.DAOs
 
             dateParam.Value = depenseDTO.DateTemps;
             montantParam.Value = depenseDTO.Montant;
-            idGarderieParam.Value = GarderieDAO.Instance.ObtenirIdGarderie(nomGarderie);
-            idCategorieParam.Value = depenseDTO.Categorie.ID;
-            idCommerceParam.Value = depenseDTO.Commerce.ID;
+            idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
+            idCategorieParam.Value = CategorieDepenseRepository.Instance.ObtenirIdCategorieDepense(depenseDTO.Categorie.Description);
+            idCommerceParam.Value = CommerceRepository.Instance.ObtenirIdCommerce(depenseDTO.Commerce.Description);
 
             command.Parameters.Add(dateParam);
             command.Parameters.Add(montantParam);

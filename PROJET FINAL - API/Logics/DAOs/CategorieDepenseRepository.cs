@@ -7,19 +7,19 @@ using PROJET_FINAL___API.Logics.Exceptions;
 
 namespace PROJET_FINAL___API.Logics.DAOs
 {
-    public class CommerceRepository : Repository
+    public class CategorieDepenseRepository : Repository
     {
         #region AttributsProprietes
 
         /// <summary>
         /// Instance unique du repository.
         /// </summary>
-        private static CommerceRepository instance;
+        private static CategorieDepenseRepository instance;
 
         /// <summary>
         /// Propriété permettant d'accèder à l'instance unique de la classe.
         /// </summary>
-        public static CommerceRepository Instance
+        public static CategorieDepenseRepository Instance
         {
             get
             {
@@ -27,7 +27,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 if (instance == null)
                 {
                     //... on crée l'instance unique...
-                    instance = new CommerceRepository();
+                    instance = new CategorieDepenseRepository();
                 }
                 //...on retourne l'instance unique.
                 return instance;
@@ -41,21 +41,21 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Constructeur privée du repository.
         /// </summary>
-        private CommerceRepository() : base() { }
+        private CategorieDepenseRepository() : base() { }
 
         #endregion
 
         #region MethodesService
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir le ID d'un Commerce selon ses informatiques uniques.
+        /// Méthode de service permettant d'obtenir le ID d'une Categorie selon ses informatiques uniques.
         /// </summary>
-        /// <param name="description">Description du Commerce.</param>
+        /// <param name="description">Description de la Categorie.</param>
         /// <returns>Le ID du Commerce.</returns>
-        public int ObtenirIdCommerce(string description)
+        public int ObtenirIdCategorieDepense(string description)
         {
-            SqlCommand command = new SqlCommand(" SELECT idCommerce " +
-                                                "   FROM T_Commerces " +
+            SqlCommand command = new SqlCommand(" SELECT idCategorieDepense " +
+                                                "   FROM T_CategoriesDepense " +
                                                 "  WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -77,7 +77,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de l'obtention d'un id d'un commerce par sa description...", ex);
+                throw new Exception("Erreur lors de l'obtention d'un id d'une Categorie par sa description...", ex);
             }
             finally
             {
@@ -86,14 +86,14 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir un Commerce selon ses informations uniques.
+        /// Méthode de service permettant d'obtenir une Categorie selon ses informations uniques.
         /// </summary>
-        /// <param name="description">Description du Commerce.</param>
-        /// <returns>Le DTO de la Commerce.</returns>
-        public CommerceDTO ObtenirCommerce(string description)
+        /// <param name="description">Description de la Categorie.</param>
+        /// <returns>Le DTO de la Categorie.</returns>
+        public CategorieDepenseDTO ObtenirCategorie(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Commerces " +
+                                                " FROM T_CategoriesDepense " +
                                                 " WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -102,20 +102,20 @@ namespace PROJET_FINAL___API.Logics.DAOs
 
             command.Parameters.Add(descParam);
 
-            CommerceDTO unCommerce;
+            CategorieDepenseDTO uneCategorie;
 
             try
             {
                 OuvrirConnexion();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                unCommerce = new CommerceDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3)); 
+                uneCategorie = new CategorieDepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)));
                 reader.Close();
-                return unCommerce;
+                return uneCategorie;
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de l'obtention d'un Commerce par sa description...", ex);
+                throw new Exception("Erreur lors de l'obtention d'une Categorie par sa description...", ex);
             }
             finally
             {
@@ -124,14 +124,14 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir la liste des Commerces.
+        /// Méthode de service permettant d'obtenir la liste des Categories.
         /// </summary>
-        public List<CommerceDTO> ObtenirListeCommerce()
+        public List<CategorieDepenseDTO> ObtenirListeCategories()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM T_Commerces ", connexion);
+                                                "   FROM T_Categories ", connexion);
 
-            List<CommerceDTO> liste = new List<CommerceDTO>();
+            List<CategorieDepenseDTO> liste = new List<CategorieDepenseDTO>();
 
             try
             {
@@ -139,15 +139,15 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    CommerceDTO commerce = new CommerceDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3));
-                    liste.Add(commerce);
+                    CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)));
+                    liste.Add(categorie);
                 }
                 reader.Close();
                 return liste;
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de l'obtention de la liste des commerces...", ex);
+                throw new Exception("Erreur lors de l'obtention de la liste des categories...", ex);
             }
             finally
             {
