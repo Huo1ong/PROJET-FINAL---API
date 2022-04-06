@@ -49,9 +49,9 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         #region MethodesGarderie
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir la liste des départements.
+        /// Méthode de service permettant d'obtenir la liste des garderies.
         /// </summary>
-        /// <returns>Liste contenant les département.</returns>
+        /// <returns>Liste contenant les garderies.</returns>
         public List<GarderieDTO> ObtenirListeGarderie()
         {
             List<GarderieDTO> listeGarderieDTO = GarderieDAO.Instance.ObtenirListeGarderie();

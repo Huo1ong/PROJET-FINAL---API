@@ -7,132 +7,50 @@ using System.Collections.Generic;
 namespace PROJET_FINAL___API.Controllers
 {
     [ApiController]
-    public class GarderieController : Controller
+    public class CategorieDepenseController : Controller
     {
         /// <summary>
         /// Roles:
-        ///  - Obtenir la liste des garderies
+        ///  - Obtenir la liste des catégories de dépense
         /// </summary>
-        /// <returns>Retourne la liste des garderies</returns>
-        [Route("")]
-        [Route("Garderie")]
-        [Route("Garderie/ObtenirListeGarderie")]
+        /// <returns>Retourne la liste des catégories de dépense</returns>
+        [Route("CategorieDepense")]
+        [Route("CategorieDepense/ObtenirListeCategorieDepense")]
         [HttpGet]
-        public List<GarderieDTO> ObtenirListeGarderie()
+        public List<CategorieDepenseDTO> ObtenirListeCategorieDepense()
         {
-            List<GarderieDTO> liste;
+            List<GarderieDTO> listeCategorieDepense;
             try
             {
-                liste = GarderieControleur.Instance.ObtenirListeGarderie();
+                listeCategorieDepense = CategorieDepenseControleur.Instance.ObtenirListeCategorieDepense();
             }
             catch (Exception)
             {
-                liste = new List<GarderieDTO>();
+                listeCategorieDepense = new List<CategorieDepenseDTO>();
             }
-            return liste;
+            return listeCategorieDepense;
         }
 
         /// <summary>
         /// Roles:
-        ///  - Obtenir une garderie grâce à son nom
+        ///  - Obtenir une catégorie de dépense grâce à sa description
         /// </summary>
-        /// <param name="nomGarderie">Nom de la Garderie</param>
-        /// <returns>Retourne la garderie souhaité</returns>
-        [Route("Garderie/ObtenirGarderie")]
+        /// <param name="description">Description de la Catégorie de dépenses</param>
+        /// <returns>Retourne la catégorie de dépense souhaitée</returns>
+        [Route("CategorieDepense/ObtenirCategorieDepense")]
         [HttpGet]
-        public GarderieDTO ObtenirGarderie([FromQuery] string nomGarderie)
+        public CategorieDepenseDTO ObtenirCategorieDepense([FromQuery] string description)
         {
-            GarderieDTO garderie = new GarderieDTO();
+            CategorieDepenseDTO categorieDepense = new CategorieDepenseDTO();
             try
             {
-                garderie = GarderieControleur.Instance.ObtenirGarderie(nomGarderie);
+                categorieDepense = CategorieDepenseControleur.Instance.ObtenirCategorieDepense(description);
             }
             catch (Exception ex)
             {
-                garderie = new GarderieDTO();
+                categorieDepense = new CategorieDepenseDTO();
             }
-            return garderie;
-        }
-
-        /// <summary>
-        /// Roles:
-        ///  - Ajouter une garderie
-        /// </summary>
-        /// <param name="garderieDTO">La nouvelle Garderie</param>
-        /// <returns></returns>
-        [Route("Garderie/AjouterGarderie")]
-        [HttpPost]
-        public void AjouterGarderie([FromBody] GarderieDTO garderieDTO)
-        {
-            try
-            {
-                GarderieControleur.Instance.AjouterGarderie(garderieDTO);
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Roles:
-        ///  - Modifier une garderie
-        /// </summary>
-        /// <param name="garderieDTO">La garderie avec les nouvelles valeurs.</param>
-        /// <returns</returns>
-        [Route("Garderie/ModifierGarderie")]
-        [HttpPost]
-        public void ModifierGarderie([FromBody] GarderieDTO garderieDTO)
-        {
-            try
-            {
-                GarderieControleur.Instance.ModifierGarderie(garderieDTO);
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Roles:
-        ///  - Supprimer une Garderie grâce à son nom
-        /// </summary>
-        /// <param name="nomGarderie">Nom de la Garderie</param>
-        /// <returns></returns>
-        [Route("Garderie/SupprimerGarderie")]
-        [HttpPost]
-        public void SupprimerGarderie([FromQuery] string nomGarderie)
-        {
-            try
-            {
-                GarderieControleur.Instance.SupprimerGarderie(nomGarderie);
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Roles:
-        ///  - Vider la liste des garderies
-        /// </summary>
-        /// <returns></returns>
-        [Route("Garderie/ViderListeGarderie")]
-        [HttpPost]
-        public void ViderListeGarderie()
-        {
-            try
-            {
-                GarderieControleur.Instance.ViderListeGarderie();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return;
+            return categorieDepense;
         }
     }
 }
