@@ -55,7 +55,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public int ObtenirIdCommerce(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT idCommerce " +
-                                                "   FROM T_Commerces " +
+                                                "   FROM T_Commerce " +
                                                 "  WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -93,7 +93,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CommerceDTO ObtenirCommerce(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Commerces " +
+                                                " FROM T_Commerce " +
                                                 " WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -124,12 +124,50 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
+        /// Méthode de service permettant d'obtenir un Commerce selon ses informations uniques.
+        /// </summary>
+        /// <param name="id">L'id du Commerce.</param>
+        /// <returns>Le DTO de la Commerce.</returns>
+        public CommerceDTO ObtenirCommerceAvecId(int id)
+        {
+            SqlCommand command = new SqlCommand(" SELECT * " +
+                                                " FROM T_Commerce " +
+                                                " WHERE IdCommerce = @id ", connexion);
+
+            SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
+
+            idParam.Value = id;
+
+            command.Parameters.Add(idParam);
+
+            CommerceDTO unCommerce;
+
+            try
+            {
+                OuvrirConnexion();
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                unCommerce = new CommerceDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                reader.Close();
+                return unCommerce;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de l'obtention d'un Commerce par son id...", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Commerces.
         /// </summary>
         public List<CommerceDTO> ObtenirListeCommerce()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM T_Commerces ", connexion);
+                                                "   FROM T_Commerce ", connexion);
 
             List<CommerceDTO> liste = new List<CommerceDTO>();
 

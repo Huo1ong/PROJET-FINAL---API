@@ -139,6 +139,7 @@ namespace PROJET_FINAL___API.Logics.Models
             Ville = uneVille;
             Province = uneProvince;
             Telephone = unTelephone;
+            ListeDepense = new List<DepenseModel>();
         }
 
         #endregion Constructeurs

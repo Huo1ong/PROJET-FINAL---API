@@ -30,14 +30,14 @@ namespace PROJET_FINAL___API.Controllers
         [HttpGet]
         public DepenseDTO ObtenirDepense([FromQuery] string nomGarderie, [FromQuery] string dateTemps)
         {
-            DepenseDTO depense = new DepenseDTO(nomGarderie, dateTemps);
+            DepenseDTO depense = new DepenseDTO();
             try
             {
                 depense = DepenseControleur.Instance.ObtenirDepense(nomGarderie, dateTemps);
             }
             catch (Exception ex)
             {
-                depense = new DepenseDTO(nomGarderie, dateTemps);
+                depense = new DepenseDTO();
             }
             return depense;
         }

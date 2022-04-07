@@ -4,6 +4,8 @@ using System.Data;
 using System.Collections.Generic;
 using PROJET_FINAL___API.Logics.DTOs;
 using PROJET_FINAL___API.Logics.Exceptions;
+using PROJET_FINAL___API.Logics.Models;
+using PROJET_FINAL___API.Logics.DAOs;
 
 /// <summary>
 /// Namespace pour les classe de type DAO.
@@ -125,7 +127,10 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 OuvrirConnexion();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                uneDepense = new DepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)), Convert.ToDouble(reader.GetString(3))); 
+                CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
+                CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
+                uneDepense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
+
                 reader.Close();
                 return uneDepense;
             }
@@ -150,7 +155,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                                                 " WHERE IdGarderie = @idGarderie ", connexion);
 
 
-            SqlParameter idGarderieParam = new SqlParameter("@date", SqlDbType.Int);
+            SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
 
             idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
 
@@ -164,7 +169,9 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    DepenseDTO depense = new DepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)), Convert.ToDouble(reader.GetString(3)));
+                    CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
+                    CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
+                    DepenseDTO depense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
                     liste.Add(depense);
                 }
                 reader.Close();

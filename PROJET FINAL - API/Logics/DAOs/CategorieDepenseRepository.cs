@@ -55,7 +55,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public int ObtenirIdCategorieDepense(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT idCategorieDepense " +
-                                                "   FROM T_CategoriesDepense " +
+                                                "   FROM T_CategorieDepense " +
                                                 "  WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -93,7 +93,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CategorieDepenseDTO ObtenirCategorieDepense(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_CategoriesDepense " +
+                                                " FROM T_CategorieDepense " +
                                                 " WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -109,7 +109,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 OuvrirConnexion();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                uneCategorie = new CategorieDepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)));
+                uneCategorie = new CategorieDepenseDTO(reader.GetString(1), reader.GetDouble(2));
                 reader.Close();
                 return uneCategorie;
             }
@@ -124,12 +124,50 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
+        /// Méthode de service permettant d'obtenir une Categorie selon ses informations uniques.
+        /// </summary>
+        /// <param name="description">Description de la Categorie.</param>
+        /// <returns>Le DTO de la Categorie.</returns>
+        public CategorieDepenseDTO ObtenirCategorieDepenseAvecId(int id)
+        {
+            SqlCommand command = new SqlCommand(" SELECT * " +
+                                                " FROM T_CategorieDepense " +
+                                                " WHERE IdCategorieDepense = @id ", connexion);
+
+            SqlParameter idParam = new SqlParameter("@id", SqlDbType.VarChar, 50);
+
+            idParam.Value = id;
+
+            command.Parameters.Add(idParam);
+
+            CategorieDepenseDTO uneCategorie;
+
+            try
+            {
+                OuvrirConnexion();
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                uneCategorie = new CategorieDepenseDTO(reader.GetString(1), reader.GetDouble(2));
+                reader.Close();
+                return uneCategorie;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de l'obtention d'une Categorie par son id...", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Categories.
         /// </summary>
         public List<CategorieDepenseDTO> ObtenirListeCategorieDepense()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM T_Categories ", connexion);
+                                                "   FROM T_CategorieDepense ", connexion);
 
             List<CategorieDepenseDTO> liste = new List<CategorieDepenseDTO>();
 
@@ -139,7 +177,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetString(2)));
+                    CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(1), reader.GetDouble(2));
                     liste.Add(categorie);
                 }
                 reader.Close();
