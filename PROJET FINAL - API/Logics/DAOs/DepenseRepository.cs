@@ -151,7 +151,9 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public List<DepenseDTO> ObtenirListeDepense(string nomGarderie)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Depenses " +
+                                                " FROM ((T_Depenses " +
+                                                "INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce)" +
+                                                "INNER JOIN T_CategorieDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
                                                 " WHERE IdGarderie = @idGarderie ", connexion);
 
 
@@ -169,8 +171,12 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
-                    CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
+                    //CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
+                    CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetFloat(2)));
+
+                    //CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
+                    CommerceDTO commerce = new CommerceDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3));
+
                     DepenseDTO depense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
                     liste.Add(depense);
                 }

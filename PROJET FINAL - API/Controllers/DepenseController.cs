@@ -11,7 +11,7 @@ namespace PROJET_FINAL___API.Controllers
     {
         [Route("Depense/ObtenirListeDepense")]
         [HttpGet]
-        public List<DepenseDTO> ObtenirListeDepartement(string nomGarderie)
+        public List<DepenseDTO> ObtenirListeDepense(string nomGarderie)
         {
             List<DepenseDTO> listeDepense;
             try
