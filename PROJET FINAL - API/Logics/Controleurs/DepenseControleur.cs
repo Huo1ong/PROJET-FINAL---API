@@ -96,18 +96,10 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <param name="depense">Le DTO de la dépense a ajouter.</param>
         public void AjouterDepense(string nomGarderie, DepenseDTO depense)
         {
-            GarderieDTO garderieDTO = GarderieRepository.Instance.ObtenirGarderie(nomGarderie);
-            GarderieModel garderieModel = new GarderieModel(garderieDTO.Nom, garderieDTO.Adresse, garderieDTO.Ville, garderieDTO.Province, garderieDTO.Telephone);
-            List<DepenseDTO> listeDepense = DepenseRepository.Instance.ObtenirListeDepense(nomGarderie);
 
-            CommerceModel commerceModel = new CommerceModel(depense.Commerce.Description, depense.Commerce.Adresse, depense.Commerce.Telephone);
-            CategorieDepenseModel categorieDepenseModel = new CategorieDepenseModel(depense.Categorie.Description, depense.Categorie.Pourcentage);
-            foreach (DepenseDTO DepenseDTO in listeDepense)
-            {
-                garderieModel.AjouterDepense(new DepenseModel(depense.DateTemps, depense.Montant, commerceModel, categorieDepenseModel));
-            }
+            depense.Commerce = CommerceRepository.Instance.ObtenirCommerce(depense.Commerce.Description);
+            depense.Categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepense(depense.Categorie.Description);
 
-            garderieModel.AjouterDepense(new DepenseModel(depense.DateTemps, depense.Montant, commerceModel, categorieDepenseModel));
 
             DepenseRepository.Instance.AjouterDepense(nomGarderie, depense);
         }

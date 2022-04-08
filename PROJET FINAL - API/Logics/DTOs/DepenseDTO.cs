@@ -1,4 +1,5 @@
 ﻿using PROJET_FINAL___API.Logics.Models;
+using System;
 
 namespace PROJET_FINAL___API.Logics.DTOs
 {
@@ -43,7 +44,7 @@ namespace PROJET_FINAL___API.Logics.DTOs
         {
             DateTemps = dateTemps;
             Montant = unMontant;
-            MontantAdmissible = unMontantAdmissible;
+            MontantAdmissible = Montant * (0.01 * uneCategorie.Pourcentage);
             Commerce = unCommerce;
             Categorie = uneCategorie;
         }

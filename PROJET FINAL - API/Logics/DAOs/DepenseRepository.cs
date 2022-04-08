@@ -209,7 +209,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             command.CommandText = " INSERT INTO T_Depenses (DateTemps, Montant, idGarderie, idCategorieDepense, idCommerce) " +
                                   " VALUES (@date, @montant, @idGarderie, @idCategorie, @idCommerce) ";
 
-            SqlParameter dateParam = new SqlParameter("@date", SqlDbType.VarChar, 100);
+            SqlParameter dateParam = new SqlParameter("@date", SqlDbType.DateTime);
             SqlParameter montantParam = new SqlParameter("@montant", SqlDbType.Money);
             SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
             SqlParameter idCategorieParam = new SqlParameter("@idCategorie", SqlDbType.Int);
