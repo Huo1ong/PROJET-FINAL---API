@@ -64,17 +64,17 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public int ObtenirIdDepense(string nomGarderie, string dateTemps)
         {
              SqlCommand command = new SqlCommand(" SELECT idDepense " +
-                                                " FROM T_Depenses " +
+                                                " FROM T_Depenses TD " +
                                                 " WHERE DateTemps = @date " +
                                                 " AND IdGarderie = @idGarderie", connexion);
 
-            SqlParameter nomParam = new SqlParameter("@date", SqlDbType.VarChar, 50);
-            SqlParameter idGarderieParam = new SqlParameter("@date", SqlDbType.Int);
+            SqlParameter dateParam = new SqlParameter("@date", SqlDbType.DateTime);
+            SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
 
-            nomParam.Value = dateTemps;
+            dateParam.Value = dateTemps;
             idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
 
-            command.Parameters.Add(nomParam);
+            command.Parameters.Add(dateParam);
             command.Parameters.Add(idGarderieParam);
 
             int id;
@@ -90,7 +90,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de l'obtention d'un id d'une depense par son nom...", ex);
+                throw new Exception("Erreur lors de l'obtention d'un id d'une dépense par sa date...", ex);
             }
             finally
             {
@@ -107,29 +107,34 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public DepenseDTO ObtenirDepense(string nomGarderie, string dateTemps)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Depenses " +
+                                                " FROM ((T_Depenses TD" +
+                                                " INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce)" +
+                                                " INNER JOIN T_CategorieDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
                                                 " WHERE DateTemps = @date " +
                                                 " AND IdGarderie = @idGarderie", connexion);
 
-            SqlParameter nomParam = new SqlParameter("@date", SqlDbType.VarChar, 50);
-            SqlParameter idGarderieParam = new SqlParameter("@date", SqlDbType.Int);
+            SqlParameter dateParam = new SqlParameter("@date", SqlDbType.DateTime);
+            SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
 
-            nomParam.Value = dateTemps;
+            dateParam.Value = dateTemps;
             idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
 
-            command.Parameters.Add(nomParam);
+            command.Parameters.Add(dateParam);
             command.Parameters.Add(idGarderieParam);
-
-            DepenseDTO uneDepense;
 
             try
             {
                 OuvrirConnexion();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
-                CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
-                uneDepense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
+
+                //CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
+                CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(11), reader.GetDouble(12));
+
+                //CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
+                CommerceDTO commerce = new CommerceDTO(reader.GetString(7), reader.GetString(8), reader.GetString(9));
+
+                DepenseDTO uneDepense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
 
                 reader.Close();
                 return uneDepense;
@@ -151,8 +156,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public List<DepenseDTO> ObtenirListeDepense(string nomGarderie)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM ((T_Depenses " +
-                                                "INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce)" +
+                                                " FROM ((T_Depenses TD " +
+                                                "INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce) " +
                                                 "INNER JOIN T_CategorieDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
                                                 " WHERE IdGarderie = @idGarderie ", connexion);
 
@@ -172,10 +177,10 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 while (reader.Read())
                 {
                     //CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
-                    CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(1), Convert.ToDouble(reader.GetFloat(2)));
+                    CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(11),reader.GetDouble(12));
 
                     //CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
-                    CommerceDTO commerce = new CommerceDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3));
+                    CommerceDTO commerce = new CommerceDTO(reader.GetString(7), reader.GetString(8), reader.GetString(9));
 
                     DepenseDTO depense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
                     liste.Add(depense);

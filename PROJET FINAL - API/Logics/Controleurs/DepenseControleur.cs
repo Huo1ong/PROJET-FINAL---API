@@ -83,7 +83,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         {
             DepenseDTO depenseDTO = DepenseRepository.Instance.ObtenirDepense(nomGarderie, dateTemps);
 
-            if (depenseDTO.DateTemps.Equals(dateTemps))
+            if (depenseDTO.DateTemps.Equals(dateTemps + " 00:00:00"))
                 return depenseDTO;
             else
                 throw new Exception("Erreur lors de l'obtention de la dépense, problème avec l'intégrité des données de la base de données.");
