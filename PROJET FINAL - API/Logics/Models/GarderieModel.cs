@@ -205,7 +205,7 @@ namespace PROJET_FINAL___API.Logics.Models
         {
             if (SiDepensePresent(depense))
             {
-                ListeDepense[depense.DateTemps] = depense;
+                ListeDepense.FirstOrDefault(item => item.DateTemps == depense.DateTemps).ToList().ForEach(item => item.Montant = depense.Montant);
             }
         }
 
