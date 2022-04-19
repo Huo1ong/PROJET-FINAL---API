@@ -104,9 +104,23 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             DepenseRepository.Instance.AjouterDepense(nomGarderie, depense);
         }
 
+        /// <summary>
+        /// Méthode de service permettant de modifier une Dépense.
+        /// </summary>
+        /// <param name="depense">Le DTO de la dépense de la garderie.</param>
+        public void ModifierDepense(string nomGarderie, DepenseDTO depense)
+        {
+            DepenseDTO depenseDTO = ObtenirDepense(nomGarderie, depense.DateTemps);
+            DepenseModel depenseModel = new DepenseModel(depenseDTO.DateTemps, depenseDTO.Montant);
+
+            if (depense.DateTemps != depenseModel.DateTemps || depense.Montant != depenseModel.Montant)
+                DepenseRepository.Instance.ModifierDepense(nomGarderie, depense);
+            else
+                throw new Exception("Erreur - Veuillez modifier au moins une valeur.");
+        }
+
         #endregion MethodesDepense
 
         #endregion MethodesServicess
-
     }
 }
