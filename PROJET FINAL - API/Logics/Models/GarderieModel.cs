@@ -104,6 +104,22 @@ namespace PROJET_FINAL___API.Logics.Models
             }
         }
 
+        /// <summary>
+        /// Attribut représentant la liste de dépense de la garderie.
+        /// </summary>
+        private List<DepenseModel> listeDepense;
+        /// <summary>
+        /// Propriété représentant la liste de dépense de la garderie.
+        /// </summary>
+        public List<DepenseModel> ListeDepense
+        {
+            get { return listeDepense; }
+            set
+            {
+                listeDepense = value;
+            }
+        }
+
         #endregion AttributsProprietes
 
         #region Constructeurs
@@ -123,6 +139,7 @@ namespace PROJET_FINAL___API.Logics.Models
             Ville = uneVille;
             Province = uneProvince;
             Telephone = unTelephone;
+            ListeDepense = new List<DepenseModel>();
         }
 
         #endregion Constructeurs
@@ -157,6 +174,71 @@ namespace PROJET_FINAL___API.Logics.Models
         public override int GetHashCode()
         {
             return Nom.Length;
+        }
+
+        /// <summary>
+        /// Méthode permettant d'obtenir la liste des dépenses grâce au nom de la Garderie. 
+        /// </summary>
+        /// <param name="nomGarderie">Le nom de la garderie</param>
+        /// <returns>La liste des dépenses de la garderie</returns>
+        public List<DepenseModel> ObtenirListeDepense()
+        {
+            return ListeDepense;
+        }
+
+        /// <summary>
+        /// Méthode permettant d'ajouter une dépense dans la liste des dépenses de la Garderie. 
+        /// </summary>
+        /// <param name="depense">La nouvelle dépense à ajouter</param>
+        /// <returns></returns>
+        public void AjouterDepense(DepenseModel depense)
+        {
+            ListeDepense.Add(depense);
+        }
+
+        /// <summary>
+        /// Méthode permettant de vérifier si une dépense est déjà présente dans la lite des dépenses de la Garderie.
+        /// </summary>
+        /// <param name="depense">La dépense à vérifier</param>
+        /// <returns>TRUE si la dépense est présente / FALSE si elle n'est pas présente</returns>
+        public bool SiDepensePresent(DepenseModel depense)
+        {
+            bool estPresent = false;
+
+            foreach(DepenseModel dep in ListeDepense)
+            {
+                if(dep.DateTemps == depense.DateTemps)
+                {
+                    estPresent = true;
+                }
+            }
+
+            return estPresent;
+        }
+
+        /// <summary>
+        /// Méthode permettant d'obtenir le nombre de dépense dans la liste des dépenses de la Garderie.
+        /// </summary>
+        /// <returns>le nombre de dépense</returns>
+        public int ObtenirNombreDepense()
+        {
+            return ListeDepense.Count;
+        }
+
+        /// <summary>
+        /// Méthode permettant de vérifier si l'objet Garderie ne possède aucune dépense ou non.
+        /// </summary>
+        /// <returns>TRUE si aucune dépense / FALSE si une ou plusieurs dépense sont présentes</returns>
+        public bool SiAucuneDepense()
+        {
+            if(ObtenirNombreDepense() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion Overrides
