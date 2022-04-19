@@ -195,15 +195,6 @@ namespace PROJET_FINAL___API.Logics.Models
         {
             ListeDepense.Add(depense);
         }
-        /// <summary>
-        /// Méthode permettant d'ajouter une dépense dans la liste des dépenses de la Garderie. 
-        /// </summary>
-        /// <param name="depense">La nouvelle dépense à ajouter</param>
-        /// <returns></returns>
-        public void AjouterDepense(DepenseModel depense)
-        {
-            ListeDepense.Add(depense);
-        }
 
         /// <summary>
         /// Méthode permettant de modifier une dépense dans la liste des dépenses de la Garderie. 
@@ -214,7 +205,7 @@ namespace PROJET_FINAL___API.Logics.Models
         {
             if (SiDepensePresent(depense))
             {
-                ListeDepense(depense) = depense;
+                ListeDepense[depense.DateTemps] = depense;
             }
         }
 
