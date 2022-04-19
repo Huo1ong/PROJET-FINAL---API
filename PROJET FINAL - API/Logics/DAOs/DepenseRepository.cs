@@ -290,7 +290,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// </summary>
         /// <param name="nomGarderie">Le nom de la Garderie.</param>
         /// <param name="depenseDTO">Le DTO de la dépense.</param>
-        public void SupprimerDepartement(string nomGarderie, DepenseDTO depenseDTO)
+        public void SupprimerDepense(string nomGarderie, DepenseDTO depenseDTO)
         {
             SqlCommand command = new SqlCommand(null, connexion);
 

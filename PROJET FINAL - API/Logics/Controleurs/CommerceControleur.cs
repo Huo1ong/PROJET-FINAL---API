@@ -79,6 +79,66 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             return new CommerceDTO(commerce);
         }
 
+        /// <summary>
+        /// Méthode de service permettant de créer le Commerce.
+        /// </summary>
+        /// <param name="commerce">Le DTO du Commerce.</param>
+        public void AjouterCommerce(CommerceDTO commerceDTO)
+        {
+            bool OK = false;
+            try
+            {
+                CommerceRepository.Instance.ObtenirIdCommerce(commerceDTO.Description);
+            }
+            catch (Exception)
+            {
+                OK = true;
+            }
+
+            if (OK)
+            {
+                CommerceModel unCommerce = new CommerceModel(commerceDTO.Description, commerceDTO.Adresse, commerceDTO.Telephone);
+                CommerceRepository.Instance.AjouterCommerce(commerceDTO);
+            }
+            else
+                throw new Exception("Erreur - Le Commerce est déjà existant.");
+
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de modifier le Commerce.
+        /// </summary>
+        /// <param name="commerce">Le DTO du Commerce.</param>
+        public void ModifierCommerce(CommerceDTO commerceDTO)
+        {
+            CommerceDTO commerceDTO2 = ObtenirCommerce(commerceDTO.Description);
+            CommerceModel commerce = new CommerceModel(commerceDTO2.Description, commerceDTO2.Adresse, commerceDTO2.Telephone);
+
+            if (commerceDTO.Adresse != commerce.Adresse || commerceDTO.Telephone != commerce.Telephone)
+                CommerceRepository.Instance.ModifierCommerce(commerceDTO);
+            else
+                throw new Exception("Erreur - Veuillez modifier au moins une valeur.");
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de supprimer le Commerce.
+        /// </summary>
+        /// <param name="commerce">Le nom du Commerce.</param>
+        public void SupprimerCommerce(string nomCommerce)
+        {
+            CommerceDTO commerceDTO = ObtenirCommerce(nomCommerce);
+            CommerceRepository.Instance.SupprimerCommerce(commerceDTO);
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de vider la liste des Commerces.
+        /// </summary>
+        public void ViderListeCommerce()
+        {
+            if (ObtenirListeCommerce().Count == 0)
+                throw new Exception("Erreur - La liste des Commerces est déjà vide.");
+            CommerceRepository.Instance.ViderListeCommerce();
+        }
         #endregion MethodesCommerce
 
         #endregion MethodesServicess
