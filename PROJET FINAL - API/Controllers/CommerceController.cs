@@ -51,5 +51,86 @@ namespace PROJET_FINAL___API.Controllers
             }
             return commerce;
         }
+
+        /// <summary>
+        /// Roles:
+        ///  - Ajouter un Commerce
+        /// </summary>
+        /// <param name="commerceDTO">Le nouveau Commerce</param>
+        /// <returns></returns>
+        [Route("Commerce/AjouterCommerce")]
+        [HttpPost]
+        public void AjouterCommerce([FromBody] CommerceDTO commerceDTO)
+        {
+            try
+            {
+                CommerceControleur.Instance.AjouterCommerce(commerceDTO);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Roles:
+        ///  - Modifier un Commerce
+        /// </summary>
+        /// <param name="commerceDTO">Le Commerce avec les nouvelles valeurs.</param>
+        /// <returns</returns>
+        [Route("Commerce/ModifierCommerce")]
+        [HttpPost]
+        public void ModifierCommerce([FromBody] CommerceDTO commerceDTO)
+        {
+            try
+            {
+                CommerceControleur.Instance.ModifierCommerce(commerceDTO);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Roles:
+        ///  - Supprimer un Commerce grâce à sa description
+        /// </summary>
+        /// <param name="description">Description du Commerce</param>
+        /// <returns></returns>
+        [Route("Commerce/SupprimerCommerce")]
+        [HttpPost]
+        public void SupprimerCommerce([FromQuery] string description)
+        {
+            try
+            {
+                CommerceControleur.Instance.SupprimerCommerce(description);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Roles:
+        ///  - Vider la liste des Commerces
+        /// </summary>
+        /// <returns></returns>
+        [Route("Commerce/ViderListeCommerce")]
+        [HttpPost]
+        public void ViderListeCommerce()
+        {
+            try
+            {
+                CommerceControleur.Instance.ViderListeCommerce();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return;
+        }
     }
 }
