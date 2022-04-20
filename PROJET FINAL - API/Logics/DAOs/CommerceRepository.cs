@@ -55,7 +55,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public int ObtenirIdCommerce(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT idCommerce " +
-                                                "   FROM T_Commerce " +
+                                                "   FROM T_Commerces " +
                                                 "  WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -93,7 +93,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CommerceDTO ObtenirCommerce(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Commerce " +
+                                                " FROM T_Commerces " +
                                                 " WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -131,7 +131,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CommerceDTO ObtenirCommerceAvecId(int id)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Commerce " +
+                                                " FROM T_Commerces " +
                                                 " WHERE IdCommerce = @id ", connexion);
 
             SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
@@ -167,7 +167,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public List<CommerceDTO> ObtenirListeCommerce()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM T_Commerce ", connexion);
+                                                "   FROM T_Commerces ", connexion);
 
             List<CommerceDTO> liste = new List<CommerceDTO>();
 
@@ -224,7 +224,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new DBUniqueException("Erreur lors de l'ajout d'un...", ex);
+                throw new DBUniqueException("Erreur lors de l'ajout d'un commerce", ex);
             }
             finally
             {

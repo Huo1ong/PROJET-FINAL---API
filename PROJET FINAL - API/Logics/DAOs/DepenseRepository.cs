@@ -108,8 +108,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM ((T_Depenses TD" +
-                                                " INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce)" +
-                                                " INNER JOIN T_CategorieDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
+                                                " INNER JOIN T_Commerces TCo ON TCo.idCommerce = TD.idCommerce)" +
+                                                " INNER JOIN T_CategoriesDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
                                                 " WHERE DateTemps = @date " +
                                                 " AND IdGarderie = @idGarderie", connexion);
 
@@ -157,8 +157,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM ((T_Depenses TD " +
-                                                "INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce) " +
-                                                "INNER JOIN T_CategorieDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
+                                                "INNER JOIN T_Commerces TCo ON TCo.idCommerce = TD.idCommerce) " +
+                                                "INNER JOIN T_CategoriesDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
                                                 " WHERE IdGarderie = @idGarderie ", connexion);
 
 

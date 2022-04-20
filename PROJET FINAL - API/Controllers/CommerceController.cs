@@ -38,12 +38,12 @@ namespace PROJET_FINAL___API.Controllers
         /// <returns>Retourne le commerce souhaité</returns>
         [Route("Commerce/ObtenirCommerce")]
         [HttpGet]
-        public CommerceDTO ObtenirCommerce([FromQuery] string description)
+        public CommerceDTO ObtenirCommerce([FromQuery] string descriptionCommerce)
         {
             CommerceDTO commerce = new CommerceDTO();
             try
             {
-                commerce = CommerceControleur.Instance.ObtenirCommerce(description);
+                commerce = CommerceControleur.Instance.ObtenirCommerce(descriptionCommerce);
             }
             catch (Exception ex)
             {
@@ -96,15 +96,15 @@ namespace PROJET_FINAL___API.Controllers
         /// Roles:
         ///  - Supprimer un Commerce grâce à sa description
         /// </summary>
-        /// <param name="description">Description du Commerce</param>
+        /// <param name="descriptionCommerce">Description du Commerce</param>
         /// <returns></returns>
         [Route("Commerce/SupprimerCommerce")]
         [HttpPost]
-        public void SupprimerCommerce([FromQuery] string description)
+        public void SupprimerCommerce([FromQuery] string descriptionCommerce)
         {
             try
             {
-                CommerceControleur.Instance.SupprimerCommerce(description);
+                CommerceControleur.Instance.SupprimerCommerce(descriptionCommerce);
 
             }
             catch (Exception ex)
