@@ -253,21 +253,28 @@ namespace PROJET_FINAL___API.Logics.DAOs
             SqlCommand command = new SqlCommand(null, connexion);
 
             command.CommandText = " UPDATE T_Depenses " +
-                                     " SET Montant = @montant  " +
+                                     " SET Montant = @montant," +
+                                     " idCommerce = @idCommerce," +
+                                     " idCategorieDepense = @idCategorieDepense  " +
                                    " WHERE DateTemps = @dateTemps " +
                                    "   AND idGarderie = @idGarderie";
-            SqlParameter dateParam = new SqlParameter("@date", SqlDbType.DateTime);
+            SqlParameter dateParam = new SqlParameter("@dateTemps", SqlDbType.DateTime);
             SqlParameter montantParam = new SqlParameter("@montant", SqlDbType.Money);
             SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
-
+            SqlParameter idCommerceParam = new SqlParameter("@idCommerce", SqlDbType.Int);
+            SqlParameter idCategorieDepenseParam = new SqlParameter("@idCategorieDepense", SqlDbType.Int);
 
             dateParam.Value = depenseDTO.DateTemps;
             montantParam.Value = depenseDTO.Montant;
             idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
+            idCommerceParam.Value = CommerceRepository.Instance.ObtenirIdCommerce(depenseDTO.Commerce.Description);
+            idCategorieDepenseParam.Value = CategorieDepenseRepository.Instance.ObtenirIdCategorieDepense(depenseDTO.Categorie.Description);
 
             command.Parameters.Add(dateParam);
             command.Parameters.Add(montantParam);
             command.Parameters.Add(idGarderieParam);
+            command.Parameters.Add(idCommerceParam);
+            command.Parameters.Add(idCategorieDepenseParam);
 
             try
             {
@@ -296,7 +303,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
 
             command.CommandText = " DELETE " +
                                     " FROM T_Depenses " +
-                                   " WHERE DateTemps = @dateTemps ";
+                                   " WHERE idDepense = @id ";
 
             SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
 
