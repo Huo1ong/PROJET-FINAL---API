@@ -55,7 +55,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public int ObtenirIdCategorieDepense(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT idCategorieDepense " +
-                                                "   FROM T_CategorieDepense " +
+                                                "   FROM T_CategoriesDepense " +
                                                 "  WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -93,7 +93,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CategorieDepenseDTO ObtenirCategorieDepense(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_CategorieDepense " +
+                                                " FROM T_CategoriesDepense " +
                                                 " WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -131,7 +131,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CategorieDepenseDTO ObtenirCategorieDepenseAvecId(int id)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_CategorieDepense " +
+                                                " FROM T_CategoriesDepense " +
                                                 " WHERE IdCategorieDepense = @id ", connexion);
 
             SqlParameter idParam = new SqlParameter("@id", SqlDbType.VarChar, 50);
@@ -167,7 +167,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public List<CategorieDepenseDTO> ObtenirListeCategorieDepense()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM T_CategorieDepense ", connexion);
+                                                "   FROM T_CategoriesDepense ", connexion);
 
             List<CategorieDepenseDTO> liste = new List<CategorieDepenseDTO>();
 

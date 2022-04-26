@@ -37,8 +37,16 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// <param name="laCategorie">L'objet du modèle CategorieDepense.</param>
         public CategorieDepenseDTO(CategorieDepenseModel laCategorie)
         {
-            Description = laCategorie.Description;
-            Pourcentage = laCategorie.Pourcentage;
+            if (laCategorie != null)
+            {
+                Description = laCategorie.Description;
+                Pourcentage = laCategorie.Pourcentage;
+            }
+            else
+            {
+                Description = null;
+                Pourcentage = 0;
+            }
 
         }
 

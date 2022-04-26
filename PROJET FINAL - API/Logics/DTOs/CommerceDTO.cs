@@ -43,10 +43,18 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// <param name="leCommerce">L'objet du modèle Commerce.</param>
         public CommerceDTO(CommerceModel leCommerce)
         {
-            Description = leCommerce.Description;
-            Adresse= leCommerce.Adresse;
-            Telephone = leCommerce.Telephone;
-
+            if (leCommerce != null)
+            {
+                Description = leCommerce.Description;
+                Adresse = leCommerce.Adresse;
+                Telephone = leCommerce.Telephone;
+            }
+            else
+            {
+                Description = null;
+                Adresse = null;
+                Telephone = null;
+            }
         }
 
         #endregion Constructeurs

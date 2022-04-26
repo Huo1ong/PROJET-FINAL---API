@@ -55,7 +55,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public int ObtenirIdCommerce(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT idCommerce " +
-                                                "   FROM T_Commerce " +
+                                                "   FROM T_Commerces " +
                                                 "  WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -93,7 +93,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CommerceDTO ObtenirCommerce(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Commerce " +
+                                                " FROM T_Commerces " +
                                                 " WHERE Description = @description ", connexion);
 
             SqlParameter descParam = new SqlParameter("@description", SqlDbType.VarChar, 50);
@@ -131,7 +131,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public CommerceDTO ObtenirCommerceAvecId(int id)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Commerce " +
+                                                " FROM T_Commerces " +
                                                 " WHERE IdCommerce = @id ", connexion);
 
             SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
@@ -167,7 +167,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public List<CommerceDTO> ObtenirListeCommerce()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                "   FROM T_Commerce ", connexion);
+                                                "   FROM T_Commerces ", connexion);
 
             List<CommerceDTO> liste = new List<CommerceDTO>();
 
@@ -187,6 +187,162 @@ namespace PROJET_FINAL___API.Logics.DAOs
             {
                 throw new Exception("Erreur lors de l'obtention de la liste des commerces...", ex);
             }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
+        /// Méthode de service permettant d'ajouter un Commerce.
+        /// </summary>
+        /// <param name="commerceDTO">Le DTO du Commerce.</param>
+        public void AjouterCommerce(CommerceDTO commerceDTO)
+        {
+            SqlCommand command = new SqlCommand(null, connexion);
+
+            command.CommandText = " INSERT INTO T_Commerces (Description, Adresse, Telephone) " +
+                                  " VALUES (@description, @adresse, @telephone) ";
+
+            SqlParameter descriptionParam = new SqlParameter("@description", SqlDbType.VarChar, 100);
+            SqlParameter adresseParam = new SqlParameter("@adresse", SqlDbType.VarChar, 200);
+            SqlParameter telephoneParam = new SqlParameter("@telephone", SqlDbType.VarChar, 12);
+
+            descriptionParam.Value = commerceDTO.Description;
+            adresseParam.Value = commerceDTO.Adresse;
+            telephoneParam.Value = commerceDTO.Telephone;
+
+            command.Parameters.Add(descriptionParam);
+            command.Parameters.Add(adresseParam);
+            command.Parameters.Add(telephoneParam);
+
+            try
+            {
+                OuvrirConnexion();
+                command.Prepare();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new DBUniqueException("Erreur lors de l'ajout d'un commerce", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de modifier un Commerce.
+        /// </summary>
+        /// <param name="commerceDTO">Le DTO du Commerce.</param>
+        public void ModifierCommerce(CommerceDTO commerceDTO)
+        {
+            SqlCommand command = new SqlCommand(null, connexion);
+
+            command.CommandText = " UPDATE T_Commerces " +
+                                     " SET Adresse = @adresse, " +
+                                     "     Telephone = @telephone " +
+                                     " WHERE Description = @description ";
+
+            SqlParameter descriptionParam = new SqlParameter("@description", SqlDbType.VarChar, 100);
+            SqlParameter adresseParam = new SqlParameter("@adresse", SqlDbType.VarChar, 200);
+            SqlParameter telephoneParam = new SqlParameter("@telephone", SqlDbType.VarChar, 12);
+
+            descriptionParam.Value = commerceDTO.Description;
+            adresseParam.Value = commerceDTO.Adresse;
+            telephoneParam.Value = commerceDTO.Telephone;
+
+            command.Parameters.Add(descriptionParam);
+            command.Parameters.Add(adresseParam);
+            command.Parameters.Add(telephoneParam);
+
+            try
+            {
+                OuvrirConnexion();
+                command.Prepare();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la modification d'un Commerce...", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de supprimer un Commerce.
+        /// </summary>
+        /// <param name="commerceDTO">Le DTO du Commerce.</param>
+        public void SupprimerCommerce(CommerceDTO commerceDTO)
+        {
+            SqlCommand command = new SqlCommand(null, connexion);
+
+            command.CommandText = " DELETE " +
+                                    " FROM T_Commerces " +
+                                   " WHERE idCommerce = @idCommerce ";
+
+            SqlParameter idCommerceParam = new SqlParameter("@idCommerce", SqlDbType.Int);
+
+            idCommerceParam.Value = ObtenirIdCommerce(commerceDTO.Description);
+
+            command.Parameters.Add(idCommerceParam);
+
+            try
+            {
+                OuvrirConnexion();
+                command.Prepare();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                if (e.Number == 547)
+                {
+                    throw new DBRelationException("Impossible de supprimer le Commerce.", e);
+                }
+                else throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la supression d'un Commerce...", ex);
+            }
+
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de vider la liste des Commerces.
+        /// </summary>
+        public void ViderListeCommerce()
+        {
+            SqlCommand command = new SqlCommand(null, connexion);
+
+            command.CommandText = " DELETE FROM T_Commerces";
+            try
+            {
+                OuvrirConnexion();
+                command.Prepare();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                if (e.Number == 547)
+                {
+                    throw new DBRelationException("Impossible de supprimer le Commerce.", e);
+                }
+                else throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la supression d'un Commerce...", ex);
+            }
+
             finally
             {
                 FermerConnexion();

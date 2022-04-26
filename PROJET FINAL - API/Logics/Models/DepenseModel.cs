@@ -150,7 +150,14 @@ namespace PROJET_FINAL___API.Logics.Models
         /// <returns>La depense admissible</returns>
         public double CalculerDepenseAdmissible()
         {
-            return Montant * (0.01 * Categorie.Pourcentage);
+            if(Categorie == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return Montant * (0.01 * Categorie.Pourcentage);
+            }
         }
         
         #endregion Overrides

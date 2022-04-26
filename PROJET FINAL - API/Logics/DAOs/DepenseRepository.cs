@@ -108,8 +108,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM ((T_Depenses TD" +
-                                                " INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce)" +
-                                                " INNER JOIN T_CategorieDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
+                                                " INNER JOIN T_Commerces TCo ON TCo.idCommerce = TD.idCommerce)" +
+                                                " INNER JOIN T_CategoriesDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
                                                 " WHERE DateTemps = @date " +
                                                 " AND IdGarderie = @idGarderie", connexion);
 
@@ -157,8 +157,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM ((T_Depenses TD " +
-                                                "INNER JOIN T_Commerce TCo ON TCo.idCommerce = TD.idCommerce) " +
-                                                "INNER JOIN T_CategorieDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
+                                                "INNER JOIN T_Commerces TCo ON TCo.idCommerce = TD.idCommerce) " +
+                                                "INNER JOIN T_CategoriesDepense TCa ON TCa.idCategorieDepense = TD.idCategorieDepense)" +
                                                 " WHERE IdGarderie = @idGarderie ", connexion);
 
 
@@ -236,6 +236,146 @@ namespace PROJET_FINAL___API.Logics.DAOs
             catch (Exception ex)
             {
                 throw new DBUniqueException("Erreur lors de l'ajout d'un...", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de modifier une dépense.
+        /// </summary>
+        /// <param name="nomGarderie">Le nom de la garderie.</param>
+        /// <param name="depenseDTO">Le DTO de la dépense.</param>
+        public void ModifierDepense(string nomGarderie, DepenseDTO depenseDTO)
+        {
+            SqlCommand command = new SqlCommand(null, connexion);
+
+            command.CommandText = " UPDATE T_Depenses " +
+                                     " SET Montant = @montant," +
+                                     " idCommerce = @idCommerce," +
+                                     " idCategorieDepense = @idCategorieDepense  " +
+                                   " WHERE DateTemps = @dateTemps " +
+                                   "   AND idGarderie = @idGarderie";
+            SqlParameter dateParam = new SqlParameter("@dateTemps", SqlDbType.DateTime);
+            SqlParameter montantParam = new SqlParameter("@montant", SqlDbType.Money);
+            SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
+            SqlParameter idCommerceParam = new SqlParameter("@idCommerce", SqlDbType.Int);
+            SqlParameter idCategorieDepenseParam = new SqlParameter("@idCategorieDepense", SqlDbType.Int);
+
+            dateParam.Value = depenseDTO.DateTemps;
+            montantParam.Value = depenseDTO.Montant;
+            idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
+            idCommerceParam.Value = CommerceRepository.Instance.ObtenirIdCommerce(depenseDTO.Commerce.Description);
+            idCategorieDepenseParam.Value = CategorieDepenseRepository.Instance.ObtenirIdCategorieDepense(depenseDTO.Categorie.Description);
+
+            command.Parameters.Add(dateParam);
+            command.Parameters.Add(montantParam);
+            command.Parameters.Add(idGarderieParam);
+            command.Parameters.Add(idCommerceParam);
+            command.Parameters.Add(idCategorieDepenseParam);
+
+            try
+            {
+                OuvrirConnexion();
+                command.Prepare();
+                command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la modification d'une dépense...", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de supprimer une dépense.
+        /// </summary>
+        /// <param name="nomGarderie">Le nom de la Garderie.</param>
+        /// <param name="depenseDTO">Le DTO de la dépense.</param>
+        public void SupprimerDepense(string nomGarderie, DepenseDTO depenseDTO)
+        {
+            SqlCommand command = new SqlCommand(null, connexion);
+
+            command.CommandText = " DELETE " +
+                                    " FROM T_Depenses " +
+                                   " WHERE idDepense = @id ";
+
+            SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
+
+            idParam.Value = ObtenirIdDepense(nomGarderie, depenseDTO.DateTemps);
+
+            command.Parameters.Add(idParam);
+
+            try
+            {
+                OuvrirConnexion();
+                command.Prepare();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                if (e.Number == 547)
+                {
+                    if (e.Message.Contains("FK_Depenses_CategorieDepense_Commerce"))
+                        throw new DBRelationException("Erreur - Impossible de supprimer la dépense. Catégorie de Dépense(s) associé(s).", e);
+                    else
+                        throw new DBRelationException("Erreur - Impossible de supprimer la dépense. Commerce(s) associé(s).", e);
+                }
+                else throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la supression d'une dépense...", ex);
+            }
+            finally
+            {
+                FermerConnexion();
+            }
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de vider la liste des départements d'un Cégep.
+        /// </summary>
+        /// <param name="nomGarderie">Le nom du Cégep.</param>
+        public void ViderListeDepense(string nomGarderie)
+        {
+            SqlCommand command = new SqlCommand(null, connexion);
+
+            command.CommandText = " DELETE " +
+                                    " FROM T_Depenses " +
+                                   " WHERE IdGarderie = @idGarderie ";
+
+            SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
+
+            idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
+
+            command.Parameters.Add(idGarderieParam);
+
+            try
+            {
+                OuvrirConnexion();
+                command.Prepare();
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                if (e.Number == 547)
+                {
+                    if (e.Message.Contains("FK_Depenses_CategorieDepense_Commerce"))
+                        throw new DBRelationException("Erreur - Impossible de supprimer le département. Catégorie de Dépense(s) associé(s).", e);
+                    else
+                        throw new DBRelationException("Erreur - Impossible de supprimer le département. Commerce(s) associé(s).", e);
+                }
+                else throw;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erreur lors de la vidange des dépenses...", ex);
             }
             finally
             {

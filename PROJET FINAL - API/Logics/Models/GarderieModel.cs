@@ -197,6 +197,45 @@ namespace PROJET_FINAL___API.Logics.Models
         }
 
         /// <summary>
+        /// Méthode permettant de modifier une dépense dans la liste des dépenses de la Garderie. 
+        /// </summary>
+        /// <param name="depense">La nouvelle dépense à renplacer</param>
+        /// <returns></returns>
+        public void ModifierDepense(DepenseModel depense)
+        {
+            if (SiDepensePresent(depense))
+            {
+                SupprimerDepense(ListeDepense.FirstOrDefault(x => x.DateTemps == depense.DateTemps));
+                AjouterDepense(depense);
+            }
+        }
+
+        /// <summary>
+        /// Méthode permettant de supprimer une dépense dans la liste des dépenses de la Garderie. 
+        /// </summary>
+        /// <param name="depense">La dépense à supprimer</param>
+        /// <returns></returns>
+        public void SupprimerDepense(DepenseModel depense)
+        {
+            if (SiDepensePresent(depense))
+            {
+                ListeDepense.Remove(depense);
+            }
+        }
+
+        /// <summary>
+        /// Méthode permettant de vider la liste des dépenses de la Garderie. 
+        /// </summary>
+        /// <returns></returns>
+        public void ViderListeDepense()
+        {
+            if (!SiAucuneDepense())
+            {
+                ListeDepense.Clear();
+            }
+        }
+
+        /// <summary>
         /// Méthode permettant de vérifier si une dépense est déjà présente dans la lite des dépenses de la Garderie.
         /// </summary>
         /// <param name="depense">La dépense à vérifier</param>
