@@ -123,10 +123,10 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de supprimer le Commerce.
         /// </summary>
-        /// <param name="commerce">Le nom du Commerce.</param>
-        public void SupprimerCommerce(string nomCommerce)
+        /// <param name="descriptionCommerce">La description du Commerce.</param>
+        public void SupprimerCommerce(string descriptionCommerce)
         {
-            CommerceDTO commerceDTO = ObtenirCommerce(nomCommerce);
+            CommerceDTO commerceDTO = ObtenirCommerce(descriptionCommerce);
             CommerceRepository.Instance.SupprimerCommerce(commerceDTO);
         }
 

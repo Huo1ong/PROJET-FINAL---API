@@ -79,6 +79,65 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             return new CategorieDepenseDTO(categorieDepense);
         }
 
+        /// <summary>
+        /// Méthode de service permettant de créer le CategorieDepense.
+        /// </summary>
+        /// <param name="categorieDepense">Le DTO du CategorieDepense.</param>
+        public void AjouterCategorieDepense(CategorieDepenseDTO categorieDepenseDTO)
+        {
+            bool OK = false;
+            try
+            {
+                CategorieDepenseRepository.Instance.ObtenirIdCategorieDepense(categorieDepenseDTO.Description);
+            }
+            catch (Exception)
+            {
+                OK = true;
+            }
+
+            if (OK)
+            {
+                CategorieDepenseModel uneCategorieDepense = new CategorieDepenseModel(categorieDepenseDTO.Description, categorieDepenseDTO.Pourcentage);
+                CategorieDepenseRepository.Instance.AjouterCategorieDepense(categorieDepenseDTO);
+            }
+            else
+                throw new Exception("Erreur - La CategorieDepense est déjà existant.");
+
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de modifier la CategorieDepense
+        /// <param name="categorieDepense">Le DTO de la CategorieDepense.</param>
+        public void ModifierCategorieDepense(CategorieDepenseDTO categorieDepenseDTO)
+        {
+            CategorieDepenseDTO categorieDepenseDTO2 = ObtenirCategorieDepense(categorieDepenseDTO.Description);
+            CategorieDepenseModel categorieDepense = new CategorieDepenseModel(categorieDepenseDTO2.Description, categorieDepenseDTO2.Pourcentage);
+
+            if (categorieDepenseDTO.Pourcentage != categorieDepense.Pourcentage)
+                CategorieDepenseRepository.Instance.ModifierCategorieDepense(categorieDepenseDTO);
+            else
+                throw new Exception("Erreur - Veuillez modifier au moins une valeur.");
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de supprimer le CategorieDepense.
+        /// </summary>
+        /// <param name="descriptionCategorieDepense">La description du CategorieDepense.</param>
+        public void SupprimerCommerce(string descriptionCategorieDepense)
+        {
+            CategorieDepenseDTO categorieDepenseDTO = ObtenirCategorieDepense(descriptionCategorieDepense);
+            CategorieDepenseRepository.Instance.SupprimerCategorieDepense(categorieDepenseDTO);
+        }
+
+        /// <summary>
+        /// Méthode de service permettant de vider la liste des CategoriesDepense.
+        /// </summary>
+        public void ViderListeCategorieDepense()
+        {
+            if (ObtenirListeCategorieDepense().Count == 0)
+                throw new Exception("Erreur - La liste des CategoriesDepense est déjà vide.");
+            CommerceRepository.Instance.ViderListeCategorieDepense();
+        }
         #endregion MethodesCategorieDepense
 
         #endregion MethodesServicess
