@@ -107,7 +107,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 OuvrirConnexion();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                unEnfant = new EnfantDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
+                unEnfant = new EnfantDTO(reader.GetString(1), reader.GetString(2), Convert.ToString(reader.GetDateTime(3)), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
                 reader.Close();
                 return unEnfant;
             }
@@ -138,7 +138,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    EnfantDTO enfant = new EnfantDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
+                    EnfantDTO enfant = new EnfantDTO(reader.GetString(1), reader.GetString(2), Convert.ToString(reader.GetDateTime(3)), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7));
                     liste.Add(enfant);
                 }
                 reader.Close();

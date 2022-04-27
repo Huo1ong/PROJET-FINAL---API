@@ -15,7 +15,6 @@ namespace PROJET_FINAL___API.Controllers
         ///  - Obtenir la liste des enfants
         /// </summary>
         /// <returns>Retourne la liste des enfants</returns>
-        [Route("")]
         [Route("Enfant")]
         [Route("Enfant/ObtenirListeEnfant")]
         [HttpGet]

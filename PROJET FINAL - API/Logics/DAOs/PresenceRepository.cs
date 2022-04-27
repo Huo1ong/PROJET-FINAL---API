@@ -85,7 +85,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
 
-                EnfantDTO enfant = new EnfantDTO(reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10));
+                EnfantDTO enfant = new EnfantDTO(reader.GetString(4), reader.GetString(5), Convert.ToString(reader.GetDateTime(6)), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10));
 
                 PresenceDTO unePresence = new PresenceDTO(Convert.ToString(reader.GetDateTime(0)), enfant);
 
@@ -128,7 +128,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    EnfantDTO enfant = new EnfantDTO(reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10));
+                    EnfantDTO enfant = new EnfantDTO(reader.GetString(4), reader.GetString(5), Convert.ToString(reader.GetDateTime(6)), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10));
 
                     PresenceDTO unePresence = new PresenceDTO(Convert.ToString(reader.GetDateTime(0)), enfant);
                     liste.Add(unePresence);
