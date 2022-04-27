@@ -339,9 +339,9 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
-        /// Méthode de service permettant de vider la liste des départements d'un Cégep.
+        /// Méthode de service permettant de vider la liste des dépense d'une Garderie.
         /// </summary>
-        /// <param name="nomGarderie">Le nom du Cégep.</param>
+        /// <param name="nomGarderie">Le nom du Garderie.</param>
         public void ViderListeDepense(string nomGarderie)
         {
             SqlCommand command = new SqlCommand(null, connexion);
