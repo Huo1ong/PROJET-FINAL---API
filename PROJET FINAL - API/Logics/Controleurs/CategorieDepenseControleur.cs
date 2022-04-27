@@ -123,7 +123,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// Méthode de service permettant de supprimer le CategorieDepense.
         /// </summary>
         /// <param name="descriptionCategorieDepense">La description du CategorieDepense.</param>
-        public void SupprimerCommerce(string descriptionCategorieDepense)
+        public void SupprimerCategorieDepense(string descriptionCategorieDepense)
         {
             CategorieDepenseDTO categorieDepenseDTO = ObtenirCategorieDepense(descriptionCategorieDepense);
             CategorieDepenseRepository.Instance.SupprimerCategorieDepense(categorieDepenseDTO);
@@ -136,7 +136,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         {
             if (ObtenirListeCategorieDepense().Count == 0)
                 throw new Exception("Erreur - La liste des CategoriesDepense est déjà vide.");
-            CommerceRepository.Instance.ViderListeCategorieDepense();
+            CategorieDepenseRepository.Instance.ViderListeCategorieDepense();
         }
         #endregion MethodesCategorieDepense
 
