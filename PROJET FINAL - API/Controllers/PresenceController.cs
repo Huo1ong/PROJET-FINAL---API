@@ -7,135 +7,72 @@ using System.Collections.Generic;
 namespace PROJET_FINAL___API.Controllers
 {
     [ApiController]
-    public class DepenseController : Controller
+    public class PresenceController : Controller
     {
         /// <summary>
         /// Roles:
-        ///  - Obtenir la liste des Dépenses
+        ///  - Obtenir la liste des Présences
         /// </summary>
         /// <param name="nomGarderie">Nom de la Garderie</param>
-        /// <returns>Retourne la liste des Dépenses</returns>
-        [Route("Depense/ObtenirListeDepense")]
+        /// <returns>Retourne la liste des Présences</returns>
+        [Route("Presence/ObtenirListePresence")]
         [HttpGet]
-        public List<DepenseDTO> ObtenirListeDepense(string nomGarderie)
+        public List<PresenceDTO> ObtenirListePresence(string nomGarderie)
         {
-            List<DepenseDTO> listeDepense;
+            List<PresenceDTO> listePresence;
             try
             {
-                listeDepense = DepenseControleur.Instance.ObtenirListeDepense(nomGarderie);
+                listePresence = PresenceControleur.Instance.ObtenirListePresence(nomGarderie);
             }
             catch (Exception)
             {
-                listeDepense = new List<DepenseDTO>();
+                listePresence = new List<PresenceDTO>();
             }
-            return listeDepense;
+            return listePresence;
         }
 
         /// <summary>
         /// Roles:
-        ///  - Obtenir une Dépense grâce à sa date et le nom de la Garderie
+        ///  - Obtenir une Présence grâce à sa date et le nom de la Garderie
         /// </summary>
         /// <param name="nomGarderie">Nom de la Garderie</param>
-        /// <param name="dateTemps">Date de la Dépense</param>
-        /// <returns>Retourne la garderie souhaité</returns>
-        [Route("Depense/ObtenirDepense")]
+        /// <param name="date">Date de la Présence</param>
+        /// <returns>Retourne la garderie souhaitée</returns>
+        [Route("Presence/ObtenirPresence")]
         [HttpGet]
-        public DepenseDTO ObtenirDepense([FromQuery] string nomGarderie, [FromQuery] string dateTemps)
+        public PresenceDTO ObtenirPresence([FromQuery] string nomGarderie, [FromQuery] string date)
         {
-            DepenseDTO depense = new DepenseDTO();
+            PresenceDTO presence = new PresenceDTO();
             try
             {
-                depense = DepenseControleur.Instance.ObtenirDepense(nomGarderie, dateTemps);
+                presence = PresenceControleur.Instance.ObtenirPresence(nomGarderie, date);
             }
             catch (Exception ex)
             {
-                depense = new DepenseDTO();
+                presence = new PresenceDTO();
             }
-            return depense;
+            return presence;
         }
 
         /// <summary>
         /// Roles:
-        ///  - Ajouter une Dépense
+        ///  - Ajouter une Présence
         /// </summary>
         /// <param name="nomGarderie">Nom de la Garderie</param>
-        /// <param name="depenseDTO">La nouvelle Dépense</param>
+        /// <param name="presenceDTO">La nouvelle Présence</param>
         /// <returns></returns>
-        [Route("Depense/AjouterDepense")]
+        [Route("Presence/AjouterPresence")]
         [HttpPost]
-        public void AjouterDepense([FromQuery] string nomGarderie, [FromBody] DepenseDTO depenseDTO)
+        public void AjouterPresence([FromQuery] string nomGarderie, [FromBody] PresenceDTO presenceDTO)
         {
             try
             {
-                DepenseControleur.Instance.AjouterDepense(nomGarderie, depenseDTO);
+                PresenceControleur.Instance.AjouterPresence(nomGarderie, presenceDTO);
             }
             catch (Exception ex)
             {
 
             }
-        }
-
-        /// <summary>
-        /// Roles:
-        ///  - Modifier une garderie
-        /// </summary>
-        /// <param name="nomGarderie">Nom de la Garderie</param>
-        /// <param name="depenseDTO">La Dépense avec de nouvelles valeurs</param>
-        /// <returns</returns>
-        [Route("Depense/ModifierDepense")]
-        [HttpPost]
-        public void ModifierDepense([FromQuery] string nomGarderie, [FromBody] DepenseDTO depenseDTO)
-        {
-            try
-            {
-                DepenseControleur.Instance.ModifierDepense(nomGarderie, depenseDTO);
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Roles:
-        ///  - Supprimer une Dépense grâce à sa date et le nom de la Garderie
-        /// </summary>
-        /// <param name="nomGarderie">Nom de la Garderie</param>
-        /// <param name="dateTemps">Date de la Dépense</param>
-        /// <returns></returns>
-        [Route("Depense/SupprimerDepense")]
-        [HttpPost]
-        public void SupprimerDepense([FromQuery] string nomGarderie, [FromQuery] string dateTemps)
-        {
-            try
-            {
-                DepenseControleur.Instance.SupprimerDepense(nomGarderie, dateTemps);
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        /// <summary>
-        /// Roles:
-        ///  - Vider la liste des dépenses
-        /// </summary>
-        /// <returns></returns>
-        [Route("Depense/ViderListeDepense")]
-        [HttpPost]
-        public void ViderListeDepartement([FromQuery] string nomGarderie)
-        {
-            try
-            {
-                DepenseControleur.Instance.ViderListeDepense(nomGarderie);
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return;
         }
     }
 }
