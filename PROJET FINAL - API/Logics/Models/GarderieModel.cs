@@ -156,6 +156,7 @@ namespace PROJET_FINAL___API.Logics.Models
             Province = uneProvince;
             Telephone = unTelephone;
             ListeDepense = new List<DepenseModel>();
+            ListePresence = new List<PresenceModel>();
         }
 
         #endregion Constructeurs
