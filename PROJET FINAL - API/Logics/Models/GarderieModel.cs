@@ -120,6 +120,22 @@ namespace PROJET_FINAL___API.Logics.Models
             }
         }
 
+        /// <summary>
+        /// Attribut représentant la liste de Présence de la Garderie.
+        /// </summary>
+        private List<PresenceModel> listePresence;
+        /// <summary>
+        /// Propriété représentant la liste de Présence de la Garderie.
+        /// </summary>
+        public List<PresenceModel> ListePresence
+        {
+            get { return listePresence; }
+            set
+            {
+                listePresence = value;
+            }
+        }
+
         #endregion AttributsProprietes
 
         #region Constructeurs
@@ -280,6 +296,109 @@ namespace PROJET_FINAL___API.Logics.Models
             }
         }
 
+        /// <summary>
+        /// Méthode permettant d'obtenir la liste des Présences grâce au nom de la Garderie. 
+        /// </summary>
+        /// <param name="nomGarderie">Le nom de la garderie</param>
+        /// <returns>La liste des Présences de la garderie</returns>
+        public List<PresenceModel> ObtenirListePresence()
+        {
+            return ListePresence;
+        }
+
+        /// <summary>
+        /// Méthode permettant d'ajouter une présence dans la liste des présences de la Garderie. 
+        /// </summary>
+        /// <param name="presence">La nouvelle présence à ajouter</param>
+        /// <returns></returns>
+        public void AjouterPresence(PresenceModel presence)
+        {
+            ListePresence.Add(presence);
+        }
+
+        /// <summary>
+        /// Méthode permettant de modifier une présence dans la liste des présences de la Garderie. 
+        /// </summary>
+        /// <param name="presence">La nouvelle présence à renplacer</param>
+        /// <returns></returns>
+        public void ModifierPresence(PresenceModel presence)
+        {
+            if (SiPresencePresent(presence))
+            {
+                SupprimerPresence(ListePresence.FirstOrDefault(x => x.DateTemps == presence.DateTemps));
+                AjouterPresence(presence);
+            }
+        }
+
+        /// <summary>
+        /// Méthode permettant de supprimer une présence dans la liste des présences de la Garderie. 
+        /// </summary>
+        /// <param name="presence">La présence à supprimer</param>
+        /// <returns></returns>
+        public void SupprimerPresence(PresenceModel presence)
+        {
+            if (SiPresencePresent(presence))
+            {
+                ListePresence.Remove(presence);
+            }
+        }
+
+        /// <summary>
+        /// Méthode permettant de vider la liste des présences de la Garderie. 
+        /// </summary>
+        /// <returns></returns>
+        public void ViderListePresence()
+        {
+            if (!SiAucunePresence())
+            {
+                ListePresence.Clear();
+            }
+        }
+
+        /// <summary>
+        /// Méthode permettant de vérifier si une présence est déjà présente dans la liste des présences de la Garderie.
+        /// </summary>
+        /// <param name="presence">La présence à vérifier</param>
+        /// <returns>TRUE si la présence est présente / FALSE si elle n'est pas présente</returns>
+        public bool SiPresencePresent(PresenceModel presence)
+        {
+            bool estPresent = false;
+
+            foreach (PresenceModel pre in ListePresence)
+            {
+                if (pre.DateTemps == presence.DateTemps)
+                {
+                    estPresent = true;
+                }
+            }
+
+            return estPresent;
+        }
+
+        /// <summary>
+        /// Méthode permettant d'obtenir le nombre de présence dans la liste des présences de la Garderie.
+        /// </summary>
+        /// <returns>le nombre de présences</returns>
+        public int ObtenirNombrePresence()
+        {
+            return ListePresence.Count;
+        }
+
+        /// <summary>
+        /// Méthode permettant de vérifier si l'objet Garderie ne possède aucune présence ou non.
+        /// </summary>
+        /// <returns>TRUE si aucune présence / FALSE si une ou plusieurs présences sont présentes</returns>
+        public bool SiAucunePresence()
+        {
+            if (ObtenirNombrePresence() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion Overrides
     }
 }

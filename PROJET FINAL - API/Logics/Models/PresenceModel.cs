@@ -100,5 +100,7 @@ namespace PROJET_FINAL___API.Logics.Models
         {
             return Enfant.Nom;
         }
+
+        #endregion
     }
 }
