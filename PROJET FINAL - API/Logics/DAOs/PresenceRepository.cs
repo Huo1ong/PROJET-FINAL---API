@@ -68,7 +68,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                                                 " FROM T_Presences TP" +
                                                 " INNER JOIN T_Enfants TEn ON TEn.idEnfant = TP.idEnfant" +
                                                 " WHERE date = @date " +
-                                                " AND IdGarderie = @idGarderie", connexion);
+                                                " AND idGarderie = @idGarderie", connexion);
 
             SqlParameter dateParam = new SqlParameter("@date", SqlDbType.DateTime);
             SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
@@ -109,9 +109,9 @@ namespace PROJET_FINAL___API.Logics.DAOs
         public List<PresenceDTO> ObtenirListePresence(string nomGarderie)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM ((T_Presences TP " +
+                                                " FROM T_Presences TP " +
                                                 " INNER JOIN T_Enfants TEn ON TEn.idEnfant = TP.idEnfant" +
-                                                " WHERE IdGarderie = @idGarderie ", connexion);
+                                                " WHERE idGarderie = @idGarderie ", connexion);
 
 
             SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
@@ -154,7 +154,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(null, connexion);
 
-            command.CommandText = " INSERT INTO T_Presences (DateTemps, idEnfant, idGarderie) " +
+            command.CommandText = " INSERT INTO T_Presences (Date, idGarderie, idEnfant) " +
                                   " VALUES (@date, @idGarderie, @idEnfant) ";
 
             SqlParameter dateParam = new SqlParameter("@date", SqlDbType.DateTime);

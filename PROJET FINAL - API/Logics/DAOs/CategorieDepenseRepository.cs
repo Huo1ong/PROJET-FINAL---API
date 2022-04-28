@@ -238,7 +238,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             SqlCommand command = new SqlCommand(null, connexion);
 
             command.CommandText = " UPDATE T_CategoriesDepense " +
-                                     " SET Pourcentage = @pourcentage, " +
+                                     " SET Pourcentage = @pourcentage " +
                                      " WHERE Description = @description ";
 
             SqlParameter descriptionParam = new SqlParameter("@description", SqlDbType.VarChar, 100);

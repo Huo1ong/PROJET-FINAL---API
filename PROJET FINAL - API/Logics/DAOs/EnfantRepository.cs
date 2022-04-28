@@ -162,7 +162,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(null, connexion);
 
-            command.CommandText = " INSERT INTO T_Enfants (Nom, Prenom, DateNaissance Adresse, Ville, Province, Telephone) " +
+            command.CommandText = " INSERT INTO T_Enfants (Nom, Prenom, DateNaissance, Adresse, Ville, Province, Telephone) " +
                                   " VALUES (@nom, @prenom, @date, @adresse, @ville, @province, @telephone) ";
 
             SqlParameter nomParam = new SqlParameter("@nom", SqlDbType.VarChar, 100);

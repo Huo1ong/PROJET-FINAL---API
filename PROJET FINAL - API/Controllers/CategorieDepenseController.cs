@@ -39,12 +39,12 @@ namespace PROJET_FINAL___API.Controllers
         /// <returns>Retourne la catégorie de dépense souhaitée</returns>
         [Route("CategorieDepense/ObtenirCategorieDepense")]
         [HttpGet]
-        public CategorieDepenseDTO ObtenirCategorieDepense([FromQuery] string description)
+        public CategorieDepenseDTO ObtenirCategorieDepense([FromQuery] string descriptionCategorieDepense)
         {
             CategorieDepenseDTO categorieDepense = new CategorieDepenseDTO();
             try
             {
-                categorieDepense = CategorieDepenseControleur.Instance.ObtenirCategorieDepense(description);
+                categorieDepense = CategorieDepenseControleur.Instance.ObtenirCategorieDepense(descriptionCategorieDepense);
             }
             catch (Exception ex)
             {
