@@ -43,7 +43,7 @@ namespace PROJET_FINAL___API.Logics.Models
                 if (value.Length <= 100)
                     adresse = value;
                 else
-                    throw new Exception("L'adresse de la Garderie doit avoir un maximum de 100 caractères.");
+                    throw new Exception("L'adresse de la Garderie doit avoir un  maximum de 100 caractères.");
             }
         }
 
