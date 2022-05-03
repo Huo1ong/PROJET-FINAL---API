@@ -44,6 +44,22 @@ namespace PROJET_FINAL___API.Logics.Models
             }
         }
 
+        /// <summary>
+        ///  Attribut représentant l'educateur de la présence.
+        /// </summary>
+        private EducateurModel educateur;
+        /// <summary>
+        ///  Propriété représentant l'educateur de la présence.
+        /// </summary>
+        public EducateurModel Educateur
+        {
+            get { return educateur; }
+            set
+            {
+                educateur = value;
+            }
+        }
+
         #endregion AttributsProprietes
 
         #region Constructeurs
@@ -53,10 +69,12 @@ namespace PROJET_FINAL___API.Logics.Models
         /// </summary>
         /// <param name="uneDateTemps">La date et l'heure de la présence</param>
         /// <param name="unEnfant">L'enfant de la présence</param>
-        public PresenceModel(string uneDateTemps = "", EnfantModel unEnfant = null)
+        /// <param name="unEducateur">L'educateur de la présence</param>
+        public PresenceModel(string uneDateTemps = "", EnfantModel unEnfant = null, EducateurModel unEducateur = null)
         {
             DateTemps = uneDateTemps;
             Enfant = unEnfant;
+            Educateur = unEducateur;
         }
 
         #endregion Constructeurs
@@ -69,7 +87,7 @@ namespace PROJET_FINAL___API.Logics.Models
         /// <returns>Version textuelle de l'objet Présence.</returns>
         public override string ToString()
         {
-            return DateTemps + "\n" + Enfant.ToString();
+            return DateTemps + "\n" + Enfant.ToString() + "\n" + Educateur.ToString();
         }
 
         /// <summary>
@@ -99,6 +117,15 @@ namespace PROJET_FINAL___API.Logics.Models
         public string ObtenirEnfantNom()
         {
             return Enfant.Nom;
+        }
+
+        /// <summary>
+        /// Méthode permettant d'obtenir le nom de l'educateur de la présence.
+        /// </summary>
+        /// <returns>le nom de l'educateur de la présence</returns>
+        public string ObtenirEducateurNom()
+        {
+            return Educateur.Nom;
         }
 
         #endregion
