@@ -14,6 +14,10 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// Propriété représentant l'enfant de la Presence.
         /// </summary>
         public EnfantDTO Enfant { get; set; }
+        /// <summary>
+        /// Propriété représentant l'educateur de la Presence.
+        /// </summary>
+        public EducateurDTO Educateur { get; set; }
 
         #endregion Proprietes
 
@@ -26,10 +30,12 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// </summary>
         /// <param name="dateTemps">Date et Heure de la Présence.</param>
         /// <param name="unEnfant">Enfant de la Présence.</param>
-        public PresenceDTO(string dateTemps = "", EnfantDTO unEnfant = null)
+        /// <param name="unEducateur">Educateur de la Présence.</param>
+        public PresenceDTO(string dateTemps = "", EnfantDTO unEnfant = null, EducateurDTO unEducateur = null)
         {
             DateTemps = dateTemps;
             Enfant = unEnfant;
+            Educateur = unEducateur;
         }
 
         /// <summary>
@@ -40,6 +46,7 @@ namespace PROJET_FINAL___API.Logics.DTOs
         {
             DateTemps = laPresence.DateTemps;
             Enfant = new EnfantDTO(laPresence.Enfant);
+            Educateur = new EducateurDTO(laPresence.Educateur);
         }
 
         #endregion Constructeurs

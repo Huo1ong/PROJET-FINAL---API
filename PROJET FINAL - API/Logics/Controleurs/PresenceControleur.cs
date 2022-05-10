@@ -94,6 +94,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         public void AjouterPresence(string nomGarderie, PresenceDTO presence)
         {
             presence.Enfant = EnfantRepository.Instance.ObtenirEnfant(presence.Enfant.Nom);
+            presence.Educateur = EducateurRepository.Instance.ObtenirEducateur(presence.Educateur.Nom);
 
             PresenceRepository.Instance.AjouterPresence(nomGarderie, presence);
         }

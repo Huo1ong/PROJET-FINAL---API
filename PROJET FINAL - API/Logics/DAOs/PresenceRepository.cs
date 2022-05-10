@@ -67,6 +67,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM T_Presences TP" +
                                                 " INNER JOIN T_Enfants TEn ON TEn.idEnfant = TP.idEnfant" +
+                                                " INNER JOIN T_Educateurs TEd ON TEd.idEducateur = TP.idEducateur" +
                                                 " WHERE date = @date " +
                                                 " AND idGarderie = @idGarderie", connexion);
 
@@ -85,9 +86,10 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
 
-                EnfantDTO enfant = new EnfantDTO(reader.GetString(4), reader.GetString(5), Convert.ToString(reader.GetDateTime(6)), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10));
+                EnfantDTO enfant = new EnfantDTO(reader.GetString(5), reader.GetString(6), Convert.ToString(reader.GetDateTime(7)), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(11));
+                EducateurDTO educateur = new EducateurDTO(reader.GetString(13), reader.GetString(14), Convert.ToString(reader.GetDateTime(15)), reader.GetString(16), reader.GetString(17), reader.GetString(18), reader.GetString(19));
 
-                PresenceDTO unePresence = new PresenceDTO(Convert.ToString(reader.GetDateTime(0)), enfant);
+                PresenceDTO unePresence = new PresenceDTO(Convert.ToString(reader.GetDateTime(0)), enfant, educateur);
 
                 reader.Close();
                 return unePresence;
@@ -111,6 +113,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             SqlCommand command = new SqlCommand(" SELECT * " +
                                                 " FROM T_Presences TP " +
                                                 " INNER JOIN T_Enfants TEn ON TEn.idEnfant = TP.idEnfant" +
+                                                " INNER JOIN T_Educateurs TEd ON TEd.idEducateur = TP.idEducateur" +
                                                 " WHERE idGarderie = @idGarderie ", connexion);
 
 
@@ -128,9 +131,10 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    EnfantDTO enfant = new EnfantDTO(reader.GetString(4), reader.GetString(5), Convert.ToString(reader.GetDateTime(6)), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10));
+                    EnfantDTO enfant = new EnfantDTO(reader.GetString(5), reader.GetString(6), Convert.ToString(reader.GetDateTime(7)), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(11));
+                    EducateurDTO educateur = new EducateurDTO(reader.GetString(13), reader.GetString(14), Convert.ToString(reader.GetDateTime(15)), reader.GetString(16), reader.GetString(17), reader.GetString(18), reader.GetString(19));
 
-                    PresenceDTO unePresence = new PresenceDTO(Convert.ToString(reader.GetDateTime(0)), enfant);
+                    PresenceDTO unePresence = new PresenceDTO(Convert.ToString(reader.GetDateTime(0)), enfant, educateur);
                     liste.Add(unePresence);
                 }
                 reader.Close();
@@ -154,20 +158,24 @@ namespace PROJET_FINAL___API.Logics.DAOs
         {
             SqlCommand command = new SqlCommand(null, connexion);
 
-            command.CommandText = " INSERT INTO T_Presences (Date, idGarderie, idEnfant) " +
-                                  " VALUES (@date, @idGarderie, @idEnfant) ";
+            command.CommandText = " INSERT INTO T_Presences (Date, idGarderie, idEnfant, idEducateur) " +
+                                  " VALUES (@date, @idGarderie, @idEnfant, @idEducateur) ";
 
             SqlParameter dateParam = new SqlParameter("@date", SqlDbType.DateTime);
             SqlParameter idGarderieParam = new SqlParameter("@idGarderie", SqlDbType.Int);
             SqlParameter idEnfantParam = new SqlParameter("@idEnfant", SqlDbType.Int);
+            SqlParameter idEducateurParam = new SqlParameter("@idEducateur", SqlDbType.Int);
 
             dateParam.Value = presenceDTO.DateTemps;
             idGarderieParam.Value = GarderieRepository.Instance.ObtenirIdGarderie(nomGarderie);
             idEnfantParam.Value = EnfantRepository.Instance.ObtenirIdEnfant(presenceDTO.Enfant.Nom);
+            idEducateurParam.Value = EducateurRepository.Instance.ObtenirIdEducateur(presenceDTO.Educateur.Nom);
 
             command.Parameters.Add(dateParam);
             command.Parameters.Add(idGarderieParam);
             command.Parameters.Add(idEnfantParam);
+            command.Parameters.Add(idEducateurParam);
+
 
             try
             {
