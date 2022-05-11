@@ -76,7 +76,9 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             }
 
             int nbEducateur = 0;
+            int nbdate = 0;
             List<EducateurDTO> listeEducateur = new List<EducateurDTO>();
+            Dictionary<EducateurDTO, string> listeDate = new Dictionary<EducateurDTO, string>();
             foreach (PresenceDTO presence in PresenceControleur.Instance.ObtenirListePresence(nomGarderie)) 
             {
                 foreach(EducateurDTO educateur in listeEducateur)
@@ -84,12 +86,28 @@ namespace PROJET_FINAL___API.Logics.Controleurs
                     if (!presence.Educateur.Equals(educateur))
                     {
                         nbEducateur++;
+                        nbdate++;
                         listeEducateur.Add(presence.Educateur);
+                        listeDate.Add(presence.Educateur, presence.DateTemps);
+                    }
+                    else
+                    {
+                        foreach(KeyValuePair<EducateurDTO, string> item in listeDate)
+                        {
+                            if (!presence.DateTemps.Equals(item.Value))
+                            {
+                                if (!presence.Educateur.Equals(item.Key))
+                                {
+                                    nbdate++;
+                                    listeDate.Add(presence.Educateur, presence.DateTemps);
+                                }
+                            }
+                        }
                     }
                 }
             }
 
-            double salaireEducateur = /*nb journée  + */ nbEducateur * 8 * 18;
+            double salaireEducateur = nbdate + nbEducateur * 8 * 18;
 
             // Total des dépenses admissibles + nbr de journées X nbr d’éducateurs.es X 8 heures X 18$(salaire)
             return totalDA + salaireEducateur;
