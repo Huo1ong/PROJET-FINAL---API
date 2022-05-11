@@ -26,7 +26,8 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// </summary>
         protected Repository()
         {
-            connexion = new SqlConnection("Server = localhost; Database = Garderie; User Id=Thomas;Password=123456;");
+            connexion = new SqlConnection("Server = localhost; Database = Garderie; User Id=QUENTINECHANGE;Password=xdrake13;");
+            //connexion = new SqlConnection("Server = localhost; Database = Garderie; User Id=Thomas;Password=123456;");
         }
 
         #endregion Constructeurs
