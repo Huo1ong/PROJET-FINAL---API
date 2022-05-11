@@ -46,7 +46,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         #region MethodesService
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir le ID d'une garderie selon ses informatiques uniques.
+        /// Méthode de service permettant d'obtenir le ID d'un enfant selon ses informatiques uniques.
         /// </summary>
         /// <param name="nom">Le nom de l'Enfant.</param>
         /// <returns>Le ID de l'Enfant.</returns>
@@ -124,7 +124,6 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Enfants.
         /// </summary>
-        /// <param name="nom">Le nom de l'enfant.</param>
         public List<EnfantDTO> ObtenirListeEnfant()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
@@ -321,7 +320,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de vider la liste des enfants...", ex);
+                throw new Exception("Erreur lors de la vidange des enfants...", ex);
             }
 
             finally

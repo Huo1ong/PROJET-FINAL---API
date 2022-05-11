@@ -5,8 +5,14 @@ using System.Collections.Generic;
 using PROJET_FINAL___API.Logics.DTOs;
 using PROJET_FINAL___API.Logics.Exceptions;
 
+/// <summary>
+/// Namespace pour les classe de type DAO.
+/// </summary>
 namespace PROJET_FINAL___API.Logics.DAOs
 {
+    /// <summary>
+    /// Classe représentant le répository d'un commerce.
+    /// </summary>
     public class CommerceRepository : Repository
     {
         #region AttributsProprietes
@@ -116,44 +122,6 @@ namespace PROJET_FINAL___API.Logics.DAOs
             catch (Exception ex)
             {
                 throw new Exception("Erreur lors de l'obtention d'un Commerce par sa description...", ex);
-            }
-            finally
-            {
-                FermerConnexion();
-            }
-        }
-
-        /// <summary>
-        /// Méthode de service permettant d'obtenir un Commerce selon ses informations uniques.
-        /// </summary>
-        /// <param name="id">L'id du Commerce.</param>
-        /// <returns>Le DTO de la Commerce.</returns>
-        public CommerceDTO ObtenirCommerceAvecId(int id)
-        {
-            SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_Commerces " +
-                                                " WHERE IdCommerce = @id ", connexion);
-
-            SqlParameter idParam = new SqlParameter("@id", SqlDbType.Int);
-
-            idParam.Value = id;
-
-            command.Parameters.Add(idParam);
-
-            CommerceDTO unCommerce;
-
-            try
-            {
-                OuvrirConnexion();
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                unCommerce = new CommerceDTO(reader.GetString(1), reader.GetString(2), reader.GetString(3));
-                reader.Close();
-                return unCommerce;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur lors de l'obtention d'un Commerce par son id...", ex);
             }
             finally
             {
@@ -334,13 +302,13 @@ namespace PROJET_FINAL___API.Logics.DAOs
             {
                 if (e.Number == 547)
                 {
-                    throw new DBRelationException("Impossible de supprimer le Commerce.", e);
+                    throw new DBRelationException("Impossible de vider un Commerce.", e);
                 }
                 else throw;
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de la supression d'un Commerce...", ex);
+                throw new Exception("Erreur lors de la vidange des Commerce...", ex);
             }
 
             finally

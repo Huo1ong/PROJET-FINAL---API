@@ -10,11 +10,11 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// </summary>
         public string Nom { get; set; }
         /// <summary>
-        /// Propriété représentant le nom de l'Enfant.
+        /// Propriété représentant le prenom de l'Enfant.
         /// </summary>
         public string Prenom { get; set; }
         /// <summary>
-        /// Propriété représentant le nom de l'Enfant.
+        /// Propriété représentant la date de Naissance de l'Enfant.
         /// </summary>
         public string DateDeNaissance { get; set; }
         /// <summary>
@@ -42,22 +42,22 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// <summary>
         /// Constructeur avec paramètres.
         /// </summary>
-        /// <param name="nom">Nom de l'Enfant.</param>
-        /// <param name="prenom">Prenom de l'Enfant.</param>
-        /// <param name="date">Date de naissance de l'Enfant.</param>
-        /// <param name="adresse">Adresse de l'Enfant.</param>
-        /// <param name="ville">Ville de l'Enfant.</param>
-        /// <param name="province">Province de l'Enfant.</param>
-        /// <param name="telephone">Téléphone de l'Enfant.</param>
-        public EnfantDTO(string nom = "", string prenom = "", string date = "", string adresse = "", string ville = "", string province = "", string telephone = "")
+        /// <param name="unNom">Nom de l'Enfant.</param>
+        /// <param name="unPrenom">Prenom de l'Enfant.</param>
+        /// <param name="uneDate">Date de naissance de l'Enfant.</param>
+        /// <param name="uneAdresse">Adresse de l'Enfant.</param>
+        /// <param name="uneVille">Ville de l'Enfant.</param>
+        /// <param name="uneProvince">Province de l'Enfant.</param>
+        /// <param name="unTelephone">Téléphone de l'Enfant.</param>
+        public EnfantDTO(string unNom = "", string unPrenom = "", string uneDate = "", string uneAdresse = "", string uneVille = "", string uneProvince = "", string unTelephone = "")
         {
-            Nom = nom;
-            Prenom = prenom;
-            DateDeNaissance = date;
-            Adresse = adresse;
-            Ville = ville;
-            Province = province;
-            Telephone = telephone;
+            Nom = unNom;
+            Prenom = unPrenom;
+            DateDeNaissance = uneDate;
+            Adresse = uneAdresse;
+            Ville = uneVille;
+            Province = uneProvince;
+            Telephone = unTelephone;
         }
 
         /// <summary>

@@ -35,18 +35,18 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// <summary>
         /// Constructeur avec paramètres.
         /// </summary>
-        /// <param name="nom">Nom de la Garderie.</param>
-        /// <param name="adresse">Adresse de la Garderie.</param>
-        /// <param name="ville">Ville de la Garderie.</param>
-        /// <param name="province">Province de la Garderie.</param>
-        /// <param name="telephone">Téléphone de la Garderie.</param>
-        public GarderieDTO(string nom = "", string adresse = "", string ville = "", string province = "", string telephone = "")
+        /// <param name="unNom">Nom de la Garderie.</param>
+        /// <param name="uneAdresse">Adresse de la Garderie.</param>
+        /// <param name="uneVille">Ville de la Garderie.</param>
+        /// <param name="uneProvince">Province de la Garderie.</param>
+        /// <param name="unTelephone">Téléphone de la Garderie.</param>
+        public GarderieDTO(string unNom = "", string uneAdresse = "", string uneVille = "", string uneProvince = "", string unTelephone = "")
         {
-            Nom = nom;
-            Adresse = adresse;
-            Ville = ville;
-            Province = province;
-            Telephone = telephone;
+            Nom = unNom;
+            Adresse = uneAdresse;
+            Ville = uneVille;
+            Province = uneProvince;
+            Telephone = unTelephone;
         }
 
         /// <summary>

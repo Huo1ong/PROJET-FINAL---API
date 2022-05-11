@@ -47,8 +47,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
         #region MethodesServices
 
-        #region MethodesGarderie
-
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des enfants.
         /// </summary>
@@ -83,13 +81,13 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de créer la Enfant.
         /// </summary>
-        /// <param name="enfant">Le DTO de la Enfant.</param>
-        public void AjouterEnfant(EnfantDTO enfant)
+        /// <param name="enfantDTO">Le DTO de la Enfant.</param>
+        public void AjouterEnfant(EnfantDTO enfantDTO)
         {
             bool OK = false;
             try
             {
-                EnfantRepository.Instance.ObtenirIdEnfant(enfant.Nom);
+                EnfantRepository.Instance.ObtenirIdEnfant(enfantDTO.Nom);
             }
             catch (Exception)
             {
@@ -98,8 +96,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
             if (OK)
             {
-                EnfantModel uneGarderie = new EnfantModel(enfant.Nom, enfant.Prenom, enfant.DateDeNaissance, enfant.Adresse, enfant.Ville, enfant.Province, enfant.Telephone);
-                EnfantRepository.Instance.AjouterEnfant(enfant);
+                EnfantRepository.Instance.AjouterEnfant(enfantDTO);
             }
             else
                 throw new Exception("Erreur - L'Enfant est déjà existante.");
@@ -109,7 +106,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de modifier l'Enfant.
         /// </summary>
-        /// <param name="enfant">Le DTO de la Enfant.</param>
+        /// <param name="enfantDTO">Le DTO de la Enfant.</param>
         public void ModifierEnfant(EnfantDTO enfantDTO)
         {
             EnfantDTO enfantDTO2 = ObtenirEnfant(enfantDTO.Nom);
@@ -124,7 +121,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de supprimer l'Enfant.
         /// </summary>
-        /// <param name="enfant">Le nom de l'Enfant.</param>
+        /// <param name="nom">Le nom de l'Enfant.</param>
         public void SupprimerEnfant(string nom)
         {
             EnfantDTO enfantDTO = ObtenirEnfant(nom);
@@ -140,8 +137,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
                 throw new Exception("Erreur - La liste des Enfants est déjà vide.");
             EnfantRepository.Instance.ViderListeEnfant();
         }
-
-        #endregion MethodesGarderie
 
         #endregion MethodesServices
     }

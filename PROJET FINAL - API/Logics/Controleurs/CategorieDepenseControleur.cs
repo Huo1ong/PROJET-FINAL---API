@@ -46,8 +46,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
         #region MethodesServices
 
-        #region MethodesCategorieDepense
-
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Catégories de Dépense.
         /// </summary>
@@ -80,9 +78,9 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         }
 
         /// <summary>
-        /// Méthode de service permettant de créer le CategorieDepense.
+        /// Méthode de service permettant de créer une Categorie de Depense.
         /// </summary>
-        /// <param name="categorieDepense">Le DTO du CategorieDepense.</param>
+        /// <param name="categorieDepenseDTO">Le DTO de la Categorie de Depense.</param>
         public void AjouterCategorieDepense(CategorieDepenseDTO categorieDepenseDTO)
         {
             bool OK = false;
@@ -97,7 +95,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
             if (OK)
             {
-                CategorieDepenseModel uneCategorieDepense = new CategorieDepenseModel(categorieDepenseDTO.Description, categorieDepenseDTO.Pourcentage);
                 CategorieDepenseRepository.Instance.AjouterCategorieDepense(categorieDepenseDTO);
             }
             else
@@ -106,8 +103,8 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         }
 
         /// <summary>
-        /// Méthode de service permettant de modifier la CategorieDepense
-        /// <param name="categorieDepense">Le DTO de la CategorieDepense.</param>
+        /// Méthode de service permettant de modifier la Categorie de Depense
+        /// <param name="categorieDepenseDTO">Le DTO de la Categorie de Depense.</param>
         public void ModifierCategorieDepense(CategorieDepenseDTO categorieDepenseDTO)
         {
             CategorieDepenseDTO categorieDepenseDTO2 = ObtenirCategorieDepense(categorieDepenseDTO.Description);
@@ -120,9 +117,9 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         }
 
         /// <summary>
-        /// Méthode de service permettant de supprimer le CategorieDepense.
+        /// Méthode de service permettant de supprimer la Categorie de Depense.
         /// </summary>
-        /// <param name="descriptionCategorieDepense">La description du CategorieDepense.</param>
+        /// <param name="descriptionCategorieDepense">La description de la Categorie de Depense.</param>
         public void SupprimerCategorieDepense(string descriptionCategorieDepense)
         {
             CategorieDepenseDTO categorieDepenseDTO = ObtenirCategorieDepense(descriptionCategorieDepense);
@@ -138,8 +135,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
                 throw new Exception("Erreur - La liste des CategoriesDepense est déjà vide.");
             CategorieDepenseRepository.Instance.ViderListeCategorieDepense();
         }
-        #endregion MethodesCategorieDepense
-
-        #endregion MethodesServicess
+        #endregion MethodesServices
     }
 }

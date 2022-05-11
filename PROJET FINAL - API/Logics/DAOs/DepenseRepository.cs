@@ -60,7 +60,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// </summary>
         /// <param name="nomGarderie">Nom de la Garderie</param>
         /// <param name="dateTemps">Date et Heure de la Depense.</param>
-        /// <returns>Le ID de la Garderie.</returns>
+        /// <returns>Le ID de la Dépense.</returns>
         public int ObtenirIdDepense(string nomGarderie, string dateTemps)
         {
              SqlCommand command = new SqlCommand(" SELECT idDepense " +
@@ -128,10 +128,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
 
-                //CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
                 CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(11), reader.GetDouble(12));
-
-                //CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
                 CommerceDTO commerce = new CommerceDTO(reader.GetString(7), reader.GetString(8), reader.GetString(9));
 
                 DepenseDTO uneDepense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
@@ -176,10 +173,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    //CategorieDepenseDTO categorie = CategorieDepenseRepository.Instance.ObtenirCategorieDepenseAvecId(reader.GetInt32(4));
                     CategorieDepenseDTO categorie = new CategorieDepenseDTO(reader.GetString(11),reader.GetDouble(12));
-
-                    //CommerceDTO commerce = CommerceRepository.Instance.ObtenirCommerceAvecId(reader.GetInt32(5));
                     CommerceDTO commerce = new CommerceDTO(reader.GetString(7), reader.GetString(8), reader.GetString(9));
 
                     DepenseDTO depense = new DepenseDTO(Convert.ToString(reader.GetDateTime(1)), Convert.ToDouble(reader.GetDecimal(2)), Convert.ToDouble(reader.GetDecimal(2)) * categorie.Pourcentage, commerce, categorie);
@@ -235,7 +229,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new DBUniqueException("Erreur lors de l'ajout d'un...", ex);
+                throw new DBUniqueException("Erreur lors de l'ajout d'une dépense...", ex);
             }
             finally
             {
@@ -341,7 +335,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant de vider la liste des dépense d'une Garderie.
         /// </summary>
-        /// <param name="nomGarderie">Le nom du Garderie.</param>
+        /// <param name="nomGarderie">Le nom de la Garderie.</param>
         public void ViderListeDepense(string nomGarderie)
         {
             SqlCommand command = new SqlCommand(null, connexion);
@@ -367,9 +361,9 @@ namespace PROJET_FINAL___API.Logics.DAOs
                 if (e.Number == 547)
                 {
                     if (e.Message.Contains("FK_Depenses_CategorieDepense_Commerce"))
-                        throw new DBRelationException("Erreur - Impossible de supprimer le département. Catégorie de Dépense(s) associé(s).", e);
+                        throw new DBRelationException("Erreur - Impossible de supprimer la dépense. Catégorie de Dépense(s) associé(s).", e);
                     else
-                        throw new DBRelationException("Erreur - Impossible de supprimer le département. Commerce(s) associé(s).", e);
+                        throw new DBRelationException("Erreur - Impossible de supprimer la dépense. Commerce(s) associé(s).", e);
                 }
                 else throw;
             }

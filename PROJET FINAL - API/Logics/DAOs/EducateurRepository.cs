@@ -42,11 +42,19 @@ namespace PROJET_FINAL___API.Logics.DAOs
 
         #endregion AttributsProprietes
 
+        #region Constructeurs
+
+        /// <summary>
+        /// Constructeur privée du repository.
+        /// </summary>
+        private EducateurRepository() : base() { }
+
+        #endregion
 
         #region MethodesService
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir le ID d'une garderie selon ses informatiques uniques.
+        /// Méthode de service permettant d'obtenir le ID d'un educateur selon ses informatiques uniques.
         /// </summary>
         /// <param name="nom">Le nom de l'educateur.</param>
         /// <returns>Le ID de l'educateur.</returns>
@@ -124,7 +132,6 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des educateurs.
         /// </summary>
-        /// <param name="nom">Le nom de l'educateur.</param>
         public List<EducateurDTO> ObtenirListeEducateur()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
@@ -321,7 +328,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de vider la liste des educateurs...", ex);
+                throw new Exception("Erreur lors de la vidange des educateurs...", ex);
             }
 
             finally
