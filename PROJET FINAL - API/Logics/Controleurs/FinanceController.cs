@@ -72,39 +72,56 @@ namespace PROJET_FINAL___API.Logics.Controleurs
             double totalDA = 0;
             foreach (DepenseDTO depense in DepenseControleur.Instance.ObtenirListeDepense(nomGarderie))
             {
-                totalDA = +depense.MontantAdmissible;
+                totalDA = totalDA + depense.MontantAdmissible;
             }
 
             int nbEducateur = 0;
             int nbdate = 0;
-            List<EducateurDTO> listeEducateur = new List<EducateurDTO>();
+            List<EducateurDTO> listeEducateur = EducateurControleur.Instance.ObtenirListeEducateur();
             Dictionary<EducateurDTO, string> listeDate = new Dictionary<EducateurDTO, string>();
-            foreach (PresenceDTO presence in PresenceControleur.Instance.ObtenirListePresence(nomGarderie)) 
+            List<PresenceDTO> listePresence = PresenceControleur.Instance.ObtenirListePresence(nomGarderie);
+            bool dejaAjouter = false;
+            bool ajoutdate = false;
+
+            foreach (PresenceDTO presence in listePresence) 
             {
-                foreach(EducateurDTO educateur in listeEducateur)
+                foreach (KeyValuePair<EducateurDTO, string> item in listeDate)
                 {
-                    if (!presence.Educateur.Equals(educateur))
+                    if (ajoutdate == false)
                     {
-                        nbEducateur++;
-                        nbdate++;
-                        listeEducateur.Add(presence.Educateur);
-                        listeDate.Add(presence.Educateur, presence.DateTemps);
-                    }
-                    else
-                    {
-                        foreach(KeyValuePair<EducateurDTO, string> item in listeDate)
+                        if (presence.Educateur.Nom == item.Key.Nom && presence.Educateur.Prenom == item.Key.Prenom)
                         {
-                            if (!presence.DateTemps.Equals(item.Value))
+                            if (presence.DateTemps != item.Value)
                             {
-                                if (!presence.Educateur.Equals(item.Key))
-                                {
-                                    nbdate++;
-                                    listeDate.Add(presence.Educateur, presence.DateTemps);
-                                }
+                                nbdate++;
+                                ajoutdate = true;
+                            }
+                            dejaAjouter = true;
+                        }
+                    }
+                }
+                if(ajoutdate == true)
+                {
+                    listeDate.Add(presence.Educateur, presence.DateTemps);
+                    ajoutdate =false;
+                }
+                if (dejaAjouter == false)
+                {
+                    foreach (EducateurDTO educateur in listeEducateur)
+                    {
+                        if (dejaAjouter == false)
+                        {
+                            if (presence.Educateur.Nom == educateur.Nom && presence.Educateur.Prenom == educateur.Prenom)
+                            {
+                                nbEducateur++;
+                                nbdate++;
+                                listeDate.Add(presence.Educateur, presence.DateTemps);
+                                dejaAjouter = true;
                             }
                         }
                     }
                 }
+                dejaAjouter = false;
             }
 
             double salaireEducateur = nbdate + nbEducateur * 8 * 18;
