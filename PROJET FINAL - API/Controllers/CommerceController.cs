@@ -34,7 +34,7 @@ namespace PROJET_FINAL___API.Controllers
         /// Roles:
         ///  - Obtenir un commerce grâce à sa description
         /// </summary>
-        /// <param name="description">Description du Commerce</param>
+        /// <param name="descriptionCommerce">Description du Commerce</param>
         /// <returns>Retourne le commerce souhaité</returns>
         [Route("Commerce/ObtenirCommerce")]
         [HttpGet]

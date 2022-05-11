@@ -37,7 +37,7 @@ namespace PROJET_FINAL___API.Controllers
         /// </summary>
         /// <param name="nomGarderie">Nom de la Garderie</param>
         /// <param name="dateTemps">Date de la Dépense</param>
-        /// <returns>Retourne la garderie souhaité</returns>
+        /// <returns>Retourne la dépense souhaité</returns>
         [Route("Depense/ObtenirDepense")]
         [HttpGet]
         public DepenseDTO ObtenirDepense([FromQuery] string nomGarderie, [FromQuery] string dateTemps)
@@ -77,7 +77,7 @@ namespace PROJET_FINAL___API.Controllers
 
         /// <summary>
         /// Roles:
-        ///  - Modifier une garderie
+        ///  - Modifier une dépense
         /// </summary>
         /// <param name="nomGarderie">Nom de la Garderie</param>
         /// <param name="depenseDTO">La Dépense avec de nouvelles valeurs</param>

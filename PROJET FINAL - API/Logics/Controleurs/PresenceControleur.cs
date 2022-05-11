@@ -52,7 +52,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Présences.
         /// </summary>
-        /// <param name="date">La date de la Présence.</param>
+        /// <param name="nomGarderie">Nom de la Garderie</param>
         /// <returns>Liste contenant les Présences.</returns>
         public List<PresenceDTO> ObtenirListePresence(string nomGarderie)
         {
@@ -74,7 +74,8 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant d'obtenir une Présence.
         /// </summary>
-        /// <param name="presence">Le DTO de la Présence désirée. (Informations du Equals nécessaires)</param>
+        ///  <param name="nomGarderie">Nom de la Garderie</param>
+        ///   <param name="date">Date de la Présence</param>
         /// <returns>Le DTO de la Présence désirée.</returns>
         public PresenceDTO ObtenirPresence(string nomGarderie, string date)
         {
@@ -90,13 +91,13 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// Méthode de service permettant d'ajouter une Présence.
         /// </summary>
         /// <param name="nomGarderie">Le nom de la Garderie.</param>
-        /// <param name="presence">Le DTO de la Présence a ajouter.</param>
-        public void AjouterPresence(string nomGarderie, PresenceDTO presence)
+        /// <param name="presenceDTO">Le DTO de la Présence a ajouter.</param>
+        public void AjouterPresence(string nomGarderie, PresenceDTO presenceDTO)
         {
-            presence.Enfant = EnfantRepository.Instance.ObtenirEnfant(presence.Enfant.Nom);
-            presence.Educateur = EducateurRepository.Instance.ObtenirEducateur(presence.Educateur.Nom);
+            presenceDTO.Enfant = EnfantRepository.Instance.ObtenirEnfant(presenceDTO.Enfant.Nom);
+            presenceDTO.Educateur = EducateurRepository.Instance.ObtenirEducateur(presenceDTO.Educateur.Nom);
 
-            PresenceRepository.Instance.AjouterPresence(nomGarderie, presence);
+            PresenceRepository.Instance.AjouterPresence(nomGarderie, presenceDTO);
         }
         #endregion MethodesDepense
 

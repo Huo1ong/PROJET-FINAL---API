@@ -10,11 +10,11 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// </summary>
         public string Nom { get; set; }
         /// <summary>
-        /// Propriété représentant le nom de l'Educateur.
+        /// Propriété représentant le prenom de l'Educateur.
         /// </summary>
         public string Prenom { get; set; }
         /// <summary>
-        /// Propriété représentant le nom de l'Educateur.
+        /// Propriété représentant la date de naissance de l'Educateur.
         /// </summary>
         public string DateDeNaissance { get; set; }
         /// <summary>
@@ -42,22 +42,22 @@ namespace PROJET_FINAL___API.Logics.DTOs
         /// <summary>
         /// Constructeur avec paramètres.
         /// </summary>
-        /// <param name="nom">Nom de l'Educateur.</param>
-        /// <param name="prenom">Prenom de l'Educateur.</param>
-        /// <param name="date">Date de naissance de l'Educateur.</param>
-        /// <param name="adresse">Adresse de l'Educateur.</param>
-        /// <param name="ville">Ville de l'Educateur.</param>
-        /// <param name="province">Province de l'Educateur.</param>
-        /// <param name="telephone">Téléphone de l'Educateur.</param>
-        public EducateurDTO(string nom = "", string prenom = "", string date = "", string adresse = "", string ville = "", string province = "", string telephone = "")
+        /// <param name="unNom">Nom de l'Educateur.</param>
+        /// <param name="unPrenom">Prenom de l'Educateur.</param>
+        /// <param name="uneDate">Date de naissance de l'Educateur.</param>
+        /// <param name="uneAdresse">Adresse de l'Educateur.</param>
+        /// <param name="uneVille">Ville de l'Educateur.</param>
+        /// <param name="uneProvince">Province de l'Educateur.</param>
+        /// <param name="unTelephone">Téléphone de l'Educateur.</param>
+        public EducateurDTO(string unNom = "", string unPrenom = "", string uneDate = "", string uneAdresse = "", string uneVille = "", string uneProvince = "", string unTelephone = "")
         {
-            Nom = nom;
-            Prenom = prenom;
-            DateDeNaissance = date;
-            Adresse = adresse;
-            Ville = ville;
-            Province = province;
-            Telephone = telephone;
+            Nom = unNom;
+            Prenom = unPrenom;
+            DateDeNaissance = uneDate;
+            Adresse = uneAdresse;
+            Ville = uneVille;
+            Province = uneProvince;
+            Telephone = unTelephone;
         }
 
         /// <summary>

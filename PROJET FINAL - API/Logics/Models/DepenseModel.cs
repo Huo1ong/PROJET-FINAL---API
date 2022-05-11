@@ -61,11 +61,11 @@ namespace PROJET_FINAL___API.Logics.Models
         }
 
         /// <summary>
-        ///  Attribut représentant la catégorie de la dépense.
+        ///  Attribut représentant la categorie de depense de la dépense.
         /// </summary>
         private CategorieDepenseModel categorie;
         /// <summary>
-        ///  Propriété représentant la catégorie de la dépense.
+        ///  Propriété représentant la categorie de depense de la dépense.
         /// </summary>
         public CategorieDepenseModel Categorie
         {
@@ -85,6 +85,8 @@ namespace PROJET_FINAL___API.Logics.Models
         /// </summary>
         /// <param name="uneDateTemps">La date et l'heure de la dépense</param>
         /// <param name="unMontant">Le montant de la dépense</param>
+        /// <param name="unCommerce">Le commerce de la dépense</param>
+        /// <param name="uneCategorie">Le categorie de la dépense</param>
         public DepenseModel(string uneDateTemps = "", double unMontant = 0, CommerceModel unCommerce = null, CategorieDepenseModel uneCategorie = null)
         {
             DateTemps = uneDateTemps;
