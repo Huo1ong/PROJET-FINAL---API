@@ -210,7 +210,14 @@ namespace PROJET_FINAL___API.Logics.Models
         /// <returns></returns>
         public void AjouterDepense(DepenseModel depense)
         {
-            ListeDepense.Add(depense);
+            if (!SiDepensePresent(depense))
+            {
+                ListeDepense.Add(depense);
+            }
+            else
+            {
+                throw new Exception("Dépense déja présente");
+            }
         }
 
         /// <summary>
@@ -225,6 +232,10 @@ namespace PROJET_FINAL___API.Logics.Models
                 SupprimerDepense(ListeDepense.FirstOrDefault(x => x.DateTemps == depense.DateTemps));
                 AjouterDepense(depense);
             }
+            else
+            {
+                throw new Exception("Dépense non présente");
+            }
         }
 
         /// <summary>
@@ -238,6 +249,10 @@ namespace PROJET_FINAL___API.Logics.Models
             {
                 ListeDepense.Remove(depense);
             }
+            else
+            {
+                throw new Exception("Dépense non présente");
+            }
         }
 
         /// <summary>
@@ -249,6 +264,10 @@ namespace PROJET_FINAL___API.Logics.Models
             if (!SiAucuneDepense())
             {
                 ListeDepense.Clear();
+            }
+            else
+            {
+                throw new Exception("Lite Dépense déjà vide.");
             }
         }
 
