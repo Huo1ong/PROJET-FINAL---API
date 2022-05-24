@@ -207,14 +207,15 @@ namespace Project_Test
 
             //Arrange
             GarderieModel garderie = new GarderieModel();
+            DateTime dateTemp = DateTime.Now;
             int countGarderie = 1;
 
             //Act
-            garderie.AjouterDepense(new DepenseModel(DateTime.Now.ToString(), 200));
+            garderie.AjouterDepense(new DepenseModel(dateTemp.ToString(), 200));
 
             //Assert
             Assert.Equal(countGarderie, garderie.ObtenirListeDepense().Count);
-            garderie.SupprimerDepense(new DepenseModel(DateTime.Now.ToString(), 200));
+            garderie.SupprimerDepense(new DepenseModel(dateTemp.ToString(), 200));
             countGarderie = 0;
             Assert.Equal(countGarderie, garderie.ObtenirListeDepense().Count);
 

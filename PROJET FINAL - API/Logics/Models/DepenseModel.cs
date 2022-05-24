@@ -40,12 +40,13 @@ namespace PROJET_FINAL___API.Logics.Models
             get { return montant; }
             set
             {
-                if (value.ToString().Length <= 20)
+                if (value >= 0)
+                {
                     montant = value;
-
+                }
                 else
                 {
-                    throw new Exception("Le pourcentage de la categorie de depense doit avoir un maximum de 50 caractères.");
+                    throw new Exception("Le montant de la depense n'est pas un nombres valide.");
                 }
             }
         }
