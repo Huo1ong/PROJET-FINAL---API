@@ -10,11 +10,11 @@ namespace PROJET_FINAL___API.Logics.Models
         #region AttributsProprietes
 
         /// <summary>
-        /// Attribut représentant la description de la categorie.
+        /// Attribut représentant la description de la categorie de depense.
         /// </summary>
         private string description;
         /// <summary>
-        /// Propriété représentant la description du commerce.
+        /// Propriété représentant la description de la categorie de depense.
         /// </summary>
         public string Description
         {
@@ -24,16 +24,16 @@ namespace PROJET_FINAL___API.Logics.Models
                 if (value.Length <= 50)
                     description = value;
                 else
-                    throw new Exception("La description de la categorie doit avoir un maximum de 50 caractères.");
+                    throw new Exception("La description de la categorie de depense doit avoir un maximum de 50 caractères.");
             }
         }
 
         /// <summary>
-        /// Attribut représentant le pourcentage de la categorie.
+        /// Attribut représentant le pourcentage de la categorie de depense.
         /// </summary>
         private double pourcentage;
         /// <summary>
-        /// Propriété représentant le pourcentage de la categorie.
+        /// Propriété représentant le pourcentage de la categorie de depense.
         /// </summary>
         public double Pourcentage
         {
@@ -51,8 +51,8 @@ namespace PROJET_FINAL___API.Logics.Models
         /// <summary>
         /// Constructeur paramétré : CATEGORIEDEPENSE
         /// </summary>
-        /// <param name="uneDescription">La description de la categorie</param>
-        /// <param name="unPourcentage">Le pourcentage de la categorie</param>
+        /// <param name="uneDescription">La description de la categorie de depense</param>
+        /// <param name="unPourcentage">Le pourcentage de la categorie de depense</param>
         public CategorieDepenseModel(string uneDescription = "", double unPourcentage = 0)
         {
             Description = uneDescription;

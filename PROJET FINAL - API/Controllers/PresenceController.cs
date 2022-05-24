@@ -37,7 +37,7 @@ namespace PROJET_FINAL___API.Controllers
         /// </summary>
         /// <param name="nomGarderie">Nom de la Garderie</param>
         /// <param name="date">Date de la Présence</param>
-        /// <returns>Retourne la garderie souhaitée</returns>
+        /// <returns>Retourne la présence souhaitée</returns>
         [Route("Presence/ObtenirPresence")]
         [HttpGet]
         public PresenceDTO ObtenirPresence([FromQuery] string nomGarderie, [FromQuery] string date)

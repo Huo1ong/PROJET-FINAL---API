@@ -94,7 +94,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir une Garderie selon ses informations uniques.
         /// </summary>
-        /// <param name="nomGarderie">Nom de la Garderie.</param>
+        /// <param name="nom">Nom de la Garderie.</param>
         /// <returns>Le DTO de la Garderie.</returns>
         public GarderieDTO ObtenirGarderie(string nom)
         {
@@ -132,7 +132,6 @@ namespace PROJET_FINAL___API.Logics.DAOs
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Garderies.
         /// </summary>
-        /// <param name="nom">Le nom de la Garderie.</param>
         public List<GarderieDTO> ObtenirListeGarderie()
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
@@ -199,7 +198,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new DBUniqueException("Erreur lors de l'ajout d'un...", ex);
+                throw new DBUniqueException("Erreur lors de l'ajout d'une garderie...", ex);
             }
             finally
             {

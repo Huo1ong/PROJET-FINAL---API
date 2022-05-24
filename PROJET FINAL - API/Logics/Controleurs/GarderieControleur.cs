@@ -46,8 +46,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
         #region MethodesServices
 
-        #region MethodesGarderie
-
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des garderies.
         /// </summary>
@@ -82,13 +80,13 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de créer la Garderie.
         /// </summary>
-        /// <param name="garderie">Le DTO de la Garderie.</param>
-        public void AjouterGarderie(GarderieDTO garderie)
+        /// <param name="garderieDTO">Le DTO de la Garderie.</param>
+        public void AjouterGarderie(GarderieDTO garderieDTO)
         {
             bool OK = false;
             try
             {
-                GarderieRepository.Instance.ObtenirIdGarderie(garderie.Nom);
+                GarderieRepository.Instance.ObtenirIdGarderie(garderieDTO.Nom);
             }
             catch (Exception)
             {
@@ -97,8 +95,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
             if (OK)
             {
-                GarderieModel uneGarderie = new GarderieModel(garderie.Nom, garderie.Adresse, garderie.Ville, garderie.Province, garderie.Telephone);
-                GarderieRepository.Instance.AjouterGarderie(garderie);
+                GarderieRepository.Instance.AjouterGarderie(garderieDTO);
             }
             else
                 throw new Exception("Erreur - La Garderie est déjà existante.");
@@ -108,7 +105,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de modifier la Garderie.
         /// </summary>
-        /// <param name="garderie">Le DTO de la Garderie.</param>
+        /// <param name="garderieDTO">Le DTO de la Garderie.</param>
         public void ModifierGarderie(GarderieDTO garderieDTO)
         {
             GarderieDTO garderieDTO2 = ObtenirGarderie(garderieDTO.Nom);
@@ -123,7 +120,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de supprimer la Garderie.
         /// </summary>
-        /// <param name="garderie">Le nom de la Garderie.</param>
+        /// <param name="nom">Le nom de la Garderie.</param>
         public void SupprimerGarderie(string nom)
         {
             GarderieDTO garderieDTO= ObtenirGarderie(nom);
@@ -139,8 +136,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
                 throw new Exception("Erreur - La liste des Garderies est déjà vide.");
             GarderieRepository.Instance.ViderListeGarderie();
         }
-
-        #endregion MethodesGarderie
 
         #endregion MethodesServices
     }

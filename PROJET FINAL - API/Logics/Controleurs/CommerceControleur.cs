@@ -46,8 +46,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
         #region MethodesServices
 
-        #region MethodesCommerce
-
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des commerces.
         /// </summary>
@@ -82,7 +80,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de créer le Commerce.
         /// </summary>
-        /// <param name="commerce">Le DTO du Commerce.</param>
+        /// <param name="commerceDTO">Le DTO du Commerce.</param>
         public void AjouterCommerce(CommerceDTO commerceDTO)
         {
             bool OK = false;
@@ -97,7 +95,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
             if (OK)
             {
-                CommerceModel unCommerce = new CommerceModel(commerceDTO.Description, commerceDTO.Adresse, commerceDTO.Telephone);
                 CommerceRepository.Instance.AjouterCommerce(commerceDTO);
             }
             else
@@ -108,7 +105,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de modifier le Commerce.
         /// </summary>
-        /// <param name="commerce">Le DTO du Commerce.</param>
+        /// <param name="commerceDTO">Le DTO du Commerce.</param>
         public void ModifierCommerce(CommerceDTO commerceDTO)
         {
             CommerceDTO commerceDTO2 = ObtenirCommerce(commerceDTO.Description);
@@ -139,8 +136,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
                 throw new Exception("Erreur - La liste des Commerces est déjà vide.");
             CommerceRepository.Instance.ViderListeCommerce();
         }
-        #endregion MethodesCommerce
 
-        #endregion MethodesServicess
+        #endregion MethodesServices
     }
 }

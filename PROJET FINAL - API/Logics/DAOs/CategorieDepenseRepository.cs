@@ -5,8 +5,14 @@ using System.Collections.Generic;
 using PROJET_FINAL___API.Logics.DTOs;
 using PROJET_FINAL___API.Logics.Exceptions;
 
+/// <summary>
+/// Namespace pour les classe de type DAO.
+/// </summary>
 namespace PROJET_FINAL___API.Logics.DAOs
 {
+    /// <summary>
+    /// Classe représentant le répository d'une categorie de dépense.
+    /// </summary>
     public class CategorieDepenseRepository : Repository
     {
         #region AttributsProprietes
@@ -48,10 +54,10 @@ namespace PROJET_FINAL___API.Logics.DAOs
         #region MethodesService
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir le ID d'une Categorie selon ses informatiques uniques.
+        /// Méthode de service permettant d'obtenir le ID d'une Categorie de Dépense selon ses informatiques uniques.
         /// </summary>
-        /// <param name="description">Description de la Categorie.</param>
-        /// <returns>Le ID du Commerce.</returns>
+        /// <param name="description">Description de la Categorie de Dépense.</param>
+        /// <returns>Le ID de la Categorie de Dépense.</returns>
         public int ObtenirIdCategorieDepense(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT idCategorieDepense " +
@@ -77,7 +83,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de l'obtention d'un id d'une Categorie par sa description...", ex);
+                throw new Exception("Erreur lors de l'obtention d'un id d'une Categorie de Depense par sa description...", ex);
             }
             finally
             {
@@ -86,10 +92,10 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir une Categorie selon ses informations uniques.
+        /// Méthode de service permettant d'obtenir une Categorie de Depense selon ses informations uniques.
         /// </summary>
-        /// <param name="description">Description de la Categorie.</param>
-        /// <returns>Le DTO de la Categorie.</returns>
+        /// <param name="description">Description de la Categorie de Depense.</param>
+        /// <returns>Le DTO de la Categorie de Depense.</returns>
         public CategorieDepenseDTO ObtenirCategorieDepense(string description)
         {
             SqlCommand command = new SqlCommand(" SELECT * " +
@@ -115,7 +121,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de l'obtention d'une Categorie par sa description...", ex);
+                throw new Exception("Erreur lors de l'obtention d'une Categorie de Depense par sa description...", ex);
             }
             finally
             {
@@ -124,45 +130,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
         }
 
         /// <summary>
-        /// Méthode de service permettant d'obtenir une Categorie selon ses informations uniques.
-        /// </summary>
-        /// <param name="description">Description de la Categorie.</param>
-        /// <returns>Le DTO de la Categorie.</returns>
-        public CategorieDepenseDTO ObtenirCategorieDepenseAvecId(int id)
-        {
-            SqlCommand command = new SqlCommand(" SELECT * " +
-                                                " FROM T_CategoriesDepense " +
-                                                " WHERE IdCategorieDepense = @id ", connexion);
-
-            SqlParameter idParam = new SqlParameter("@id", SqlDbType.VarChar, 50);
-
-            idParam.Value = id;
-
-            command.Parameters.Add(idParam);
-
-            CategorieDepenseDTO uneCategorie;
-
-            try
-            {
-                OuvrirConnexion();
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-                uneCategorie = new CategorieDepenseDTO(reader.GetString(1), reader.GetDouble(2));
-                reader.Close();
-                return uneCategorie;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erreur lors de l'obtention d'une Categorie par son id...", ex);
-            }
-            finally
-            {
-                FermerConnexion();
-            }
-        }
-
-        /// <summary>
-        /// Méthode de service permettant d'obtenir la liste des Categories.
+        /// Méthode de service permettant d'obtenir la liste des Categories de Dépense.
         /// </summary>
         public List<CategorieDepenseDTO> ObtenirListeCategorieDepense()
         {
@@ -185,7 +153,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de l'obtention de la liste des categories...", ex);
+                throw new Exception("Erreur lors de l'obtention de la liste des categories de dépense...", ex);
             }
             finally
             {
@@ -221,7 +189,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new DBUniqueException("Erreur lors de l'ajout d'une categorie depense", ex);
+                throw new DBUniqueException("Erreur lors de l'ajout d'une categorie de depense", ex);
             }
             finally
             {
@@ -258,7 +226,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de la modification d'une Categorie Depense...", ex);
+                throw new Exception("Erreur lors de la modification d'une Categorie de Depense...", ex);
             }
             finally
             {
@@ -333,7 +301,7 @@ namespace PROJET_FINAL___API.Logics.DAOs
             }
             catch (Exception ex)
             {
-                throw new Exception("Erreur lors de vider une CategorieDepense...", ex);
+                throw new Exception("Erreur lors de la vidange des CategorieDepense...", ex);
             }
 
             finally

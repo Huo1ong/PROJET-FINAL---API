@@ -47,8 +47,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
         #region MethodesServices
 
-        #region MethodesGarderie
-
         /// <summary>
         /// Méthode de service permettant d'obtenir la liste des Educateurs.
         /// </summary>
@@ -83,13 +81,13 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de créer la Educateur.
         /// </summary>
-        /// <param name="Educateur">Le DTO de la Educateur.</param>
-        public void AjouterEducateur(EducateurDTO Educateur)
+        /// <param name="EducateurDTO">Le DTO de la Educateur.</param>
+        public void AjouterEducateur(EducateurDTO EducateurDTO)
         {
             bool OK = false;
             try
             {
-                EducateurRepository.Instance.ObtenirIdEducateur(Educateur.Nom);
+                EducateurRepository.Instance.ObtenirIdEducateur(EducateurDTO.Nom);
             }
             catch (Exception)
             {
@@ -98,8 +96,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
 
             if (OK)
             {
-                EducateurModel uneGarderie = new EducateurModel(Educateur.Nom, Educateur.Prenom, Educateur.DateDeNaissance, Educateur.Adresse, Educateur.Ville, Educateur.Province, Educateur.Telephone);
-                EducateurRepository.Instance.AjouterEducateur(Educateur);
+                EducateurRepository.Instance.AjouterEducateur(EducateurDTO);
             }
             else
                 throw new Exception("Erreur - L'Educateur est déjà existante.");
@@ -109,7 +106,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de modifier l'Educateur.
         /// </summary>
-        /// <param name="Educateur">Le DTO de la Educateur.</param>
+        /// <param name="EducateurDTO">Le DTO de la Educateur.</param>
         public void ModifierEducateur(EducateurDTO EducateurDTO)
         {
             EducateurDTO EducateurDTO2 = ObtenirEducateur(EducateurDTO.Nom);
@@ -124,7 +121,7 @@ namespace PROJET_FINAL___API.Logics.Controleurs
         /// <summary>
         /// Méthode de service permettant de supprimer l'Educateur.
         /// </summary>
-        /// <param name="Educateur">Le nom de l'Educateur.</param>
+        /// <param name="nom">Le nom de l'Educateur.</param>
         public void SupprimerEducateur(string nom)
         {
             EducateurDTO EducateurDTO = ObtenirEducateur(nom);
@@ -140,8 +137,6 @@ namespace PROJET_FINAL___API.Logics.Controleurs
                 throw new Exception("Erreur - La liste des Educateurs est déjà vide.");
             EducateurRepository.Instance.ViderListeEducateur();
         }
-
-        #endregion MethodesGarderie
 
         #endregion MethodesServices
     }
